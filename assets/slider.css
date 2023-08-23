@@ -1,0 +1,121 @@
+h5,
+h6 {
+  font-family: var(--actor-font);
+}
+
+.slider {
+  padding: 1rem 0px;
+  margin-bottom: 30rem;
+}
+
+.slider h5 {
+  color: #1e1e1e;
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Slider Wrap */
+.slider .slides-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+}
+
+/* Slide H6 ###Style One */
+.slider.slider-style-one .slides-wrap .slide h6 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+/* Slide Media  ###Style One */
+.slider.slider-style-one .slides-wrap .slide .slide-media {
+  padding-right: 20px;
+  margin-bottom: 1rem;
+}
+
+.slider.slider-style-one .slides-wrap .slide .slide-media a {
+  display: inline-block;
+}
+/* Slide Media[Image]  ###Style One */
+.slider.slider-style-one .slides-wrap .slide .slide-media a img {
+  width: 202px;
+  max-width: 398px;
+  height: auto;
+}
+
+/* Slide Bar ###Style One */
+.slider.slider-style-one .slides-wrap .slide-bar {
+  background: #efefef;
+  border: none;
+  height: 5px;
+  margin-right: 0;
+  padding: 0;
+}
+.slider.slider-style-one .slides-wrap .slide-bar span {
+  background: #080808;
+  display: flex;
+  width: 80px;
+  height: inherit;
+  border-radius: 5px;
+}
+/* Slider next and prev arrow */
+.slider_btn {
+  display: none;
+}
+
+@media only screen and (min-width: 425px) {
+  /* Slider Media[Image] ###Style One */
+  .slider.slider-style-one .slides-wrap .slide .slide-media a img {
+    width: 282px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .slider {
+    position: relative;
+  }
+  /* Slider Media[Image] ###Style One  */
+  .slider.slider-style-one .slides-wrap .slide .slide-media a img {
+    width: 316px;
+  }
+  /* Slider next and prev arrow */
+  .slider_btn {
+    display: block;
+  }
+  .slider_btn i {
+    color: #fff;
+    font-size: 20px;
+  }
+  .slider_btn .slide-btn-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0;
+    border-radius: 35px;
+    cursor: pointer;
+    min-height: 43px;
+    min-width: 43px;
+    opacity: 1;
+    outline: 0;
+    position: absolute;
+    transition: all 0.5s;
+    z-index: 1000;
+  }
+
+  .slider_btn .slide-btn-next {
+    right: 5%;
+    top: 50%;
+  }
+  .slider_btn .slide-btn-prev {
+    left: 5%;
+    top: 50%;
+  }
+}
+@media only screen and (min-width: 900px) {
+  /* Slider Media[Image] ###Style One */
+  .slider.slider-style-one .slides-wrap .slide .slide-media a img {
+    width: 398px;
+  }
+}

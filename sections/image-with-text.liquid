@@ -1,0 +1,138 @@
+{{ 'image-with-text.css' | asset_url | stylesheet_tag }}
+{% style %}
+  .image-with-text {
+    padding-top: {{- section.settings.section-image-with-text-pt -}}
+    px;
+    padding-bottom: {{- section.settings.section-image-with-text-pb -}}
+    px;
+  }
+{% endstyle %}
+<section class="image-with-text">
+  <div class="image-with-text-container image-with-text-container--{%- if section.settings.section-image-with-text_alignment == "image_second" -%}image_second {% else -%} image_first {%- endif %} container">
+    <div class="image-with-text-media">
+      {% if section.settings.section-image-with-text-media != blank %}
+        <img src="{{ section.settings.section-image-with-text-media | img_url: 'master' }}" alt="assemble" />
+
+      {% else %}
+        {{ "image" | placeholder_svg_tag: "placeholder-image" }}
+      {% endif %}
+    </div>
+    <div class="image-with-text-content">
+      {% for image_with_text in section.blocks %}
+        {% case image_with_text.type %}
+          {% when "tagline" %}
+          <h4 class="image-with-text-content-tagname">{{ image_with_text.settings.section-image-with-text-tagline }}</h4>
+          {% when "heading" %}
+          <h3>{{ image_with_text.settings.section-image-with-text-heading }}</h3>
+          {% when "description" %}
+          <p>
+            {{ image_with_text.settings.section-image-with-text-description }}
+          </p>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Image with text",
+    "tag": "section",
+    "class": "section-image-with-text",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Select image",
+        "id": "section-image-with-text-media"
+      }, {
+        "type": "select",
+        "label": "Desktop image placement",
+        "id": "section-image-with-text_alignment",
+        "options": [
+          {
+            "value": "image_first",
+            "label": "Image first"
+          }, {
+            "value": "image_second",
+            "label": "Image second"
+          }
+        ],
+        "default": "image_first"
+      }, {
+        "type": "range",
+        "label": "Padding Top",
+        "id": "section-image-with-text-pt",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 30
+      }, {
+        "type": "range",
+        "label": "Padding Bottom",
+        "id": "section-image-with-text-pb",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 30
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Tag Line",
+        "type": "tagline",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "label": "Tagline",
+            "id": "section-image-with-text-tagline",
+            "default": "Tagline"
+          }
+        ]
+      }, {
+        "name": "Heading",
+        "type": "heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "label": "Heading",
+            "id": "section-image-with-text-heading",
+            "default": "Image with text"
+          }
+        ]
+      }, {
+        "name": "Description",
+        "type": "description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "inline_richtext",
+            "label": "Description",
+            "id": "section-image-with-text-description",
+            "default": "Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text",
+        "blocks": [
+          {
+            "type": "tagline"
+          }, {
+            "type": "heading"
+          }, {
+            "type": "description"
+          }
+        ]
+      }
+
+    ]
+  }
+{% endschema %}

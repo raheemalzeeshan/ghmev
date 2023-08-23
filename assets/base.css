@@ -1,0 +1,66 @@
+/* Reset */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-font: "Lexend Deca", sans-serif;
+  --actor-font: 'Actor', sans-serif;
+  --lato-font: 'Lato', sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: var(--primary-font);
+}
+img {
+  max-width: 100%;
+}
+a {
+  font-family: var(--primary-font);
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+
+.hide-onMobile {
+  display: none;
+}
+
+/* General Container */
+.container {
+  width: clamp(300px, 95vw - 0px, 1200px);
+  margin: 0 auto;
+}
+
+/* Order Now Btn */
+.order-now-btn {
+  background-color: #1b222d;
+  color: #fff;
+  padding: 11.1013px 28.8634px;
+  border: none;
+  border-radius: 0.5em;
+  display: inline-block;
+}
+/* Placeholders */
+.placeholder-product-5, .placeholder-image {
+  background-color: #e5e6e6;
+  border-radius: 5px;
+}
+@media only screen and (min-width: 900px) {
+  .hide-onDesktop {
+    display: none;
+  }
+
+  /* Placeholders */
+  .placeholder-product-5 {
+    margin-right: 2rem;
+  }
+}

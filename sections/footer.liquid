@@ -1,0 +1,86 @@
+{{ 'footer.css' | asset_url | stylesheet_tag }}
+<div class="footer-wrap">
+  <div class="footer-container container">
+    <!-- footer items -->
+    <div class="footer-items">
+      <!-- Footer Detail -->
+      <div class="footer-details">
+        <div class="footer-media">
+          {% if section.settings.section-footer-logo %}
+            <img src="{{ section.settings.section-footer-logo | img_url: 'master' }}" alt="" />
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: "placeholder-image" }}
+          {% endif %}
+        </div>
+        <div class="footer-content">
+          <p>{{ section.settings.section-footer-description }}</p>
+          <!--Footer contact -->
+          <div class="footer-contact">
+            {% include 'address' %}
+          </div>
+          <!--Footer service -->
+          <div class="footer-service">
+            <h5></h5>
+            <a
+              href=""
+              class="footer-detail-number"
+              rel="noopener noreferrer"></a>
+            <a
+              href=""
+              class="footer-detail-email"
+              rel="noopener noreferrer"></a>
+          </div>
+          <!--Footer description -->
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Footer item -->
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "footer",
+    "tag": "section",
+    "class": "section-footer",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Select Logo",
+        "id": "section-footer-logo"
+      },
+      {
+        "type": "inline_richtext",
+        "label": "Footer Description",
+        "id": "section-footer-description"
+      },
+      {
+        "type": "header",
+        "content": "Contact Details"
+      },
+      {
+        "type": "text",
+        "label": "Contact Heading",
+        "id": "section-footer-contact-heading"
+      }, {
+        "type": "text",
+        "label": "Contact number",
+        "id": "section-footer-contact-number"
+      }, {
+        "type": "text",
+        "label": "Contact number",
+        "id": "section-footer-contact-email"
+      }, {
+        "type": "header",
+        "content": "Service Support"
+      }, {
+        "type": "text",
+        "label": "Service Label",
+        "id": "section-service-heading"
+      }
+    ]
+  }
+{% endschema %}

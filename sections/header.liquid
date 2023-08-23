@@ -1,0 +1,118 @@
+{{ 'header.css' | asset_url | stylesheet_tag }}
+<header>
+  <nav role="navigation">
+    <div class="nav-container">
+      <div class="nav-mobile-wrapper">
+        <div class="nav-mobile-container">
+          <!-- Main Logo -->
+          <div class="main-logo">
+            <a href="" rel="noopener noreferrer">
+              {%- if section.settings.select-main-logo != blank -%}
+                <img src="{{ section.settings.select-main-logo | img_url: 'master' }}" alt="{{ site.name }}" />
+              {%- else -%}
+                <h1>{{ shop.name | capitalize }}</h1>
+              {%- endif -%}
+            </a>
+          </div>
+          <div class="mobile-nav-icons hide-onDesktop">
+            <!-- Cart Icon -->
+            <a href="{{ routes.cart_url }}" rel="noopener noreferrer">
+              {% render 'icon-cart' %}
+            </a>
+            <!-- Menu Bar -->
+            <div class="menu-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav Links -->
+      <div class="nav-middle">
+        <ul class="nav-links">
+          {% for navlinks in section.settings.navigation-links.links %}
+            <li>
+              <a href="{{ navlinks.url }}" rel="noopener noreferrer">{{ navlinks.title }}</a>
+              {%- if navlinks.links != blank -%}
+                <span class="dropdown-close">
+                  {% render 'icon-chevron-right' %}
+                </span>
+                <div class="dropdown">
+                  <ul>
+                    {%- for dropdownlinks in navlinks.links -%}
+                      <li>
+                        <a href="{{ dropdownlinks.url }}" rel="noopener noreferrer">{{ dropdownlinks.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        <a
+          class="register-btn"
+          href=""
+          rel="noopener noreferrer">Login / Register</a>
+      </div>
+      <!-- Other Links -->
+      <div class="nav-right">
+        {%- if section.settings.book-a-ride-btn != blank and section.settings.show-book-ride-btn -%}
+          <a
+            class="book-ride-btn"
+            href=""
+            rel="noopener noreferrer">{{ section.settings.book-a-ride-btn }}</a>
+        {%- endif -%}
+        <a
+          class="my-account hide-onMobile"
+          href=""
+          rel="noopener noreferrer">My Account</a>
+        <!-- Cart Icon -->
+        <span class="hide-onMobile">
+          <a href="{{ routes.cart_url }}" rel="noopener noreferrer">
+            {% render 'icon-cart' %}
+          </a>
+
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+{{ 'header.js' | asset_url | script_tag }}
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "tag": "section",
+    "class": "top-header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Select Logo",
+        "id": "select-main-logo"
+      }, {
+        "type": "link_list",
+        "label": "Select Menu",
+        "id": "navigation-links"
+      }, {
+        "type": "text",
+        "label": "Book a ride",
+        "id": "book-a-ride-btn"
+      }, {
+        "type": "checkbox",
+        "label": "Show Book a ride button",
+        "id": "show-book-ride-btn",
+        "default": true
+      }
+
+    ]
+  }
+{% endschema %}

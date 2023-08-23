@@ -1,0 +1,21 @@
+{
+    "name": "Homepage",
+    "sections": {
+        "banner-image":{
+            "type": "banner-image"
+        },
+        "featured-bar":{
+            "type": "featured-bar"
+        }, 
+        "featured-product": {
+            "type": "featured-product"
+        },
+        "image-with-text": {
+            "type": "image-with-text"
+        },
+        "slider": {
+            "type": "slider"
+        }
+    },
+    "order": ["banner-image","featured-bar","featured-product","image-with-text","slider"]
+}
