@@ -1,0 +1,7 @@
+.gallery .gallery-group {
+    display: grid;
+    margin-top: 1rem;
+}
+.gallery .gallery-group .gallery-item img {
+  border-radius: 5px;
+}

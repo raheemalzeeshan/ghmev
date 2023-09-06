@@ -1,21 +1,25 @@
 {
     "name": "Homepage",
     "sections": {
-        "banner-image":{
-            "type": "banner-image"
+        "banner": {
+            "type": "banner"
         },
-        "featured-bar":{
-            "type": "featured-bar"
-        }, 
-        "featured-product": {
-            "type": "featured-product"
+        "image_with_text": {
+            "type": "image_with_text"
         },
-        "image-with-text": {
-            "type": "image-with-text"
+        "banner_features": {
+            "type": "banner_features"
         },
-        "slider": {
-            "type": "slider"
+        "richtext": {
+            "type": "richtext"
+        },
+        "gallery": {
+            "type": "gallery"
+        },
+        "multicolumn": {
+            "type": "multicolumn"
         }
+        
     },
-    "order": ["banner-image","featured-bar","featured-product","image-with-text","slider"]
+    "order": ["banner","image_with_text","banner_features","richtext","gallery","multicolumn"]
 }

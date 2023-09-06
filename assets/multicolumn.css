@@ -1,0 +1,70 @@
+.multicolumn {
+  margin: 1rem 0px;
+}
+/* group */
+.multicolumn .multicolumn-group {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
+}
+
+.multicolumn .multicolumn-group .multicolumn-column {
+  position: relative;
+}
+.multicolumn .multicolumn-column .multicolumn-img {
+  width: 100%;
+  height: 100%;
+}
+.multicolumn .multicolumn-column .multicolumn-img img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.multicolumn .multicolumn-column .multicolumn-img img:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.multicolumn .multicolumn-group .multicolumn-column .multicolumn-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.multicolumn .multicolumn-column .multicolumn-content h5 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.multicolumn .multicolumn-column .multicolumn-content a {
+  font-size: 11.2px;
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media only screen and (min-width: 425px) {
+  .multicolumn .multicolumn-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 768px) {
+  .multicolumn .multicolumn-group {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .multicolumn .multicolumn-column .multicolumn-content h5 {
+    font-size: 26px;
+  }
+  .multicolumn .multicolumn-column .multicolumn-content a {
+    font-size: 14px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .multicolumn .multicolumn-group .multicolumn-column {
+    padding-right: 15px;
+  }
+  .multicolumn .multicolumn-column .multicolumn-content h5 {
+    font-size: 30px;
+  }
+}

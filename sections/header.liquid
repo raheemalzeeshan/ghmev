@@ -1,4 +1,10 @@
 {{ 'header.css' | asset_url | stylesheet_tag }}
+<style>
+  nav .main-logo a {
+    width: {{ settings.logo_width -}}
+    px;
+  }
+</style>
 <header>
   <nav role="navigation">
     <div class="nav-container">
@@ -6,9 +12,9 @@
         <div class="nav-mobile-container">
           <!-- Main Logo -->
           <div class="main-logo">
-            <a href="" rel="noopener noreferrer">
-              {%- if section.settings.select-main-logo != blank -%}
-                <img src="{{ section.settings.select-main-logo | img_url: 'master' }}" alt="{{ site.name }}" />
+            <a href="{{ shop.url }}" rel="noopener noreferrer">
+              {%- if settings.brand_logo != blank -%}
+                <img src="{{ settings.brand_logo | img_url: 'master' }}" alt="{{ site.name }}" />
               {%- else -%}
                 <h1>{{ shop.name | capitalize }}</h1>
               {%- endif -%}
@@ -35,7 +41,7 @@
       <!-- Nav Links -->
       <div class="nav-middle">
         <ul class="nav-links">
-          {% for navlinks in section.settings.navigation-links.links %}
+          {% for navlinks in section.settings.navigation_links.links %}
             <li>
               <a href="{{ navlinks.url }}" rel="noopener noreferrer">{{ navlinks.title }}</a>
               {%- if navlinks.links != blank -%}
@@ -56,23 +62,47 @@
             </li>
           {%- endfor -%}
         </ul>
-        <a
-          class="register-btn"
-          href=""
-          rel="noopener noreferrer">Login / Register</a>
+
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <a
+              class="register-btn"
+              href="{{ routes.account_login_url }}"
+              rel="noopener noreferrer">My Account</a>
+          {% else %}
+            <a
+              class="register-btn"
+              href="{{ routes.account_url }}"
+              rel="noopener noreferrer">
+              Login / Register</a>
+          {% endif %}
+      {% else %}
+
+        {% endif %}
       </div>
       <!-- Other Links -->
       <div class="nav-right">
-        {%- if section.settings.book-a-ride-btn != blank and section.settings.show-book-ride-btn -%}
+        {%- if section.settings.nav_button != blank and section.settings.show_nav_button -%}
           <a
             class="book-ride-btn"
             href=""
-            rel="noopener noreferrer">{{ section.settings.book-a-ride-btn }}</a>
+            rel="noopener noreferrer">{{ section.settings.nav_button }}</a>
         {%- endif -%}
-        <a
-          class="my-account hide-onMobile"
-          href=""
-          rel="noopener noreferrer">My Account</a>
+
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <a
+              class="my-account hide-onMobile"
+              href="{{ routes.account_url }}"
+              rel="noopener noreferrer">My Account</a>
+            {{ 'logout' | customer_logout_link }}
+          {% else %}
+            <a
+              class="my-account hide-onMobile"
+              href="{{ routes.account_url }}"
+              rel="noopener noreferrer">Login</a>
+          {% endif %}
+        {% endif %}
         <!-- Cart Icon -->
         <span class="hide-onMobile">
           <a href="{{ routes.cart_url }}" rel="noopener noreferrer">
@@ -83,6 +113,7 @@
       </div>
     </div>
   </nav>
+  <div class="nav-dropdown-overlay"></div>
 </header>
 
 {{ 'header.js' | asset_url | script_tag }}
@@ -95,24 +126,19 @@
     "class": "top-header",
     "settings": [
       {
-        "type": "image_picker",
-        "label": "Select Logo",
-        "id": "select-main-logo"
-      }, {
         "type": "link_list",
         "label": "Select Menu",
-        "id": "navigation-links"
+        "id": "navigation_links"
       }, {
         "type": "text",
-        "label": "Book a ride",
-        "id": "book-a-ride-btn"
+        "label": "Button",
+        "id": "nav_button"
       }, {
         "type": "checkbox",
-        "label": "Show Book a ride button",
-        "id": "show-book-ride-btn",
+        "label": "Show button",
+        "id": "show_nav_button",
         "default": true
       }
-
     ]
   }
 {% endschema %}

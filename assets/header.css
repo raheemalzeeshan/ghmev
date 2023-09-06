@@ -194,7 +194,6 @@
     .hide-onDesktop {
       display: none;
     }
-    /* Navigation */
     nav {
       background-color: #1b222d;
       display: flex;
@@ -258,8 +257,13 @@
       background-color: #fff;
       width: 200px;
       position: absolute;
-      top: 59px;
+      top: 50px;
       z-index: 999;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border: 1px solid #0000001f;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top: none;
     }
     nav .nav-middle ul li .dropdown-close {
       padding: 10px 0px 10px 0px;

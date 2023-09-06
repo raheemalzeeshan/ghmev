@@ -1,0 +1,108 @@
+{{ 'multicolumn.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{section.id}} .multicolumn {
+      margin-top: {{- section.settings.multicolumn_margin_top -}}px;
+      margin-bottom: {{- section.settings.multicolumn_margin_bottom -}}px;
+  }
+</style>
+<div class="multicolumn">
+  <div class="multicolumn-container container">
+    <div class="multicolumn-group">
+      {% for multicolumnBlocks in section.blocks %}
+        {% case multicolumnBlocks.type %}
+          {% when 'column' %}
+            <div class="multicolumn-column">
+              <div class="multicolumn-img">
+                {% if multicolumnBlocks.settings.multicolumn_image != blank %}
+                  <img src="{{ multicolumnBlocks.settings.multicolumn_image | img_url: 'master'}} " alt="">
+                {% else %}
+                  {{ 'product-2' | placeholder_svg_tag: 'placeholder-lifestyle-2' }}
+                {% endif %}
+              </div>
+              <div class="multicolumn-content">
+                <h5>{{ multicolumnBlocks.settings.multicolumn_heading }}</h5>
+                <a
+                  href="{{- multicolumnBlocks.settings.multicolumn_url -}}"
+                  rel="noopener noreferrer"
+                >
+                  {{- multicolumnBlocks.settings.multicolumn_label_url -}}
+                </a>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Multicolumn",
+  "settings": [
+    {
+      "type": "range",
+      "label": "Margin top",
+      "id": "multicolumn_margin_top",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "label": "Margin bottom",
+      "id": "multicolumn_margin_bottom",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Column",
+      "type": "column",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "multicolumn_image",
+          "default": "true"
+        },
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "multicolumn_heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "multicolumn_label_url",
+          "label": "Label",
+          "default": "Link"
+        },
+        {
+          "type": "url",
+          "id": "multicolumn_url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multicolumn",
+      "category": "Multicolumn",
+      "blocks": [
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

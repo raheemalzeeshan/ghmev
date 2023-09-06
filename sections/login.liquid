@@ -1,0 +1,114 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+<div class="login-form-wrapper customer-form-wrapper">
+  <div class="login-form-container container customer-form-container">
+    <!--Form -->
+    <div class="login-form customer-form">
+      <h3>Log in</h3>
+      {% form 'customer_login' %}
+        <!--Email-->
+        <div class="login-email customer-form-group">
+          <label for="email">Email</label>
+          <span class="customer-form-input">
+            <input
+              type="email"
+              name="customer[email]"
+              placeholder="Enter your email"
+              required />
+          </span>
+        </div>
+        <!-- Password -->
+        <div class="login-password customer-form-group">
+          <label for="password">Password</label>
+          <span class="customer-form-input">
+            <input
+              id="login-password-input"
+              type="password"
+              name="customer[password]"
+              placeholder="Enter your password"
+              required />
+          </span>
+          {% render 'icon-password-show' %}
+          {% render 'icon-password-hide' %}
+        </div>
+        {{ form.errors | default_errors | replace: 'form-error-active' }}
+        <!-- Forget password-->
+        <p class="login-forget-password customer-form-forget-password">
+          <a href="#recover" rel="noopener noreferrer">Forgot your password?</a>
+        </p>
+        <!-- Login Button -->
+        <div class="login-submit customer-form-submit order-now-btn">
+          <input type="submit" value="Log in" />
+        </div>
+
+        <!-- Register-->
+        <p class="login-register-link">
+          Don't have an account?
+          <a href="{{ routes.account_register_url }}" rel="noopener noreferrer">Register</a>
+        </p>
+      </div>
+
+    {% endform %}
+  </div>
+</div>
+
+<!--Recover Password-->
+<div class="revover-password-wrapper customer-form-wrapper">
+  <div class="revover-password-container container customer-form-container">
+    <div class="revover-password-customer customer-form">
+      <h3>Reset your password</h3>
+      <p>We will send you an email to reset your password</p>
+      {% form 'recover_customer_password' %}
+        <!--Email-->
+        <div class="recover-email customer-form-group">
+          <label for="email">Email</label>
+          <span class="customer-form-input">
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required />
+          </span>
+        </div>
+        <!-- Submit Button -->
+        <div class="recover-submit customer-form-submit order-now-btn">
+          <input type="submit" value="Submit" />
+        </div>
+      {% endform %}
+      <a href="javascript:void(0)" class="recover-cancel">Cancel</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  let loginWrapper = document.querySelector(".login-form-wrapper");
+  let revoverPassword_wrapper = document.querySelector(".revover-password-wrapper");
+
+  let forgetPassword = document.querySelector("[href='#recover']");
+  let backtologinpage = document.querySelector(".recover-cancel");
+  forgetPassword.addEventListener("click", () => {
+    revoverPassword_wrapper.style.display = "block";
+    loginWrapper.style.display = "none";
+  });
+  backtologinpage.addEventListener('click', () => {
+    revoverPassword_wrapper.style.display = "none";
+    loginWrapper.style.display = "block";
+
+  });
+
+// Password Show Hide
+  let icon_showPassword = document.querySelector(".password-show");
+  let icon_hideowPassword = document.querySelector(".password-hide");
+  let passwordInput = document.querySelector("#login-password-input");
+
+  icon_showPassword.addEventListener("click", () => {
+    icon_showPassword.style.display = "none";
+    icon_hideowPassword.style.display = "block";
+    passwordInput.type = "text";
+  });
+
+  icon_hideowPassword.addEventListener("click", () => {
+    icon_hideowPassword.style.display = "none";
+    icon_showPassword.style.display = "block";
+    passwordInput.type = "password";
+  });
+</script>

@@ -1,0 +1,45 @@
+/* Heading */
+.richtext .richtext-heading h2 {
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 19.2px;
+}
+/* Left */
+
+.richtext .richtext-heading h2.richtext_text_align_left {
+  text-align: left;
+}
+/* Center */
+.richtext .richtext-heading h2.richtext_text_align_center {
+  text-align: center;
+}
+/* Right */
+.richtext .richtext-heading h2.richtext_text_align_right {
+  text-align: right;
+}
+
+/* Description */
+.richtext .richtext_description p {
+  font-size: 16px;
+  line-height: 21.6px;
+}
+/* Left */
+.richtext .richtext_description .richtext_description_aligment_left p {
+  text-align: left;
+}
+/* Center */
+.richtext .richtext_description .richtext_description_aligment_center p {
+  text-align: center;
+}
+/* Right */
+.richtext .richtext_description .richtext_description_aligment_right p {
+  text-align: right;
+}
+
+@media only screen and (min-width: 768px) {
+  /* Heading */
+  .richtext .richtext-heading h2 {
+    font-size: 29px;
+  }
+}

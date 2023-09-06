@@ -1,1 +1,1 @@
-#GHMEV Shopify Theme
+## GHMEV Shopify Theme

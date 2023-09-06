@@ -1,0 +1,49 @@
+/* Banner Features*/
+.banner-features {
+    padding: 10px 0px;
+}
+.banner-features-itmes {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.banner-features .banner-features-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 5px;
+}
+/* Images */
+.banner-features .banner-features-item img {
+  height: 1em;
+  margin-left: 4px;
+  width: 1em;
+}
+/* Heading */
+.banner-features .banner-features-item h3 {
+    color: #fff;
+    font-size: .9em;
+    font-weight: 400;
+    text-align: center;
+    line-height: 21.6px;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    .banner-features {
+        padding: 16px 0px;
+    }
+    .banner-features .banner-features-item {
+        flex-direction: row;
+    }
+    .banner-features .banner-features-item img {
+        width: 18px;
+        height: 23px;
+        margin-right: 8px;
+    }
+    .banner-features .banner-features-item h3 {
+        color: #fff;
+        font-size: 16px;
+    }
+}

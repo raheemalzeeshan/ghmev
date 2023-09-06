@@ -1,0 +1,258 @@
+/* Heading */
+.image-with-text h2 {
+  color: #4a4a4a;
+  font-weight: 400;
+  padding-bottom: 10px;
+  letter-spacing: 3px;
+  line-height: 38.4px;
+}
+/* Heading Size */
+.image-with-text-items .iwt-content h2.iwt_heading_small {
+  font-size: 20px;
+}
+.image-with-text-items .iwt-content h2.iwt_heading_medium {
+  font-size: 25px;
+}
+.image-with-text-items .iwt-content h2.iwt_heading_large {
+  font-size: 30px;
+}
+
+/* Heading aligment */
+.image-with-text-items .iwt-content h2.iwt_heading_aligment_left {
+    text-align: left;
+}
+.image-with-text-items .iwt-content h2.iwt_heading_aligment_center {
+    text-align: center;
+}
+.image-with-text-items .iwt-content h2.iwt_heading_aligment_right {
+    text-align: right;
+}
+
+/* Paragraph */
+.image-with-text p {
+  color: #4a4a4a;
+  font-size: 13px;
+  font-weight: 400;
+  padding-bottom: 16px;
+  line-height: 24px;
+  margin-top: 5px;
+}
+/* Paragraph aligment */
+.image-with-text .iwt_description_aligment_left p {
+    text-align: left;
+}
+.image-with-text .iwt_description_aligment_center p {
+    text-align: center;
+}
+.image-with-text .iwt_description_aligment_right p {
+    text-align: right;
+}
+/* Tagline */
+.image-with-text .iwt-caption {
+  font-size: 16px;
+  color: rgb(33, 37, 41);
+  margin-top: unset;
+  padding-bottom: unset;
+  margin-bottom: 8px;
+}
+/*Tagline Text Style */
+.image-with-text p.iwt-caption.caption_text_syle_default {
+    text-transform: unset;
+}
+.image-with-text p.iwt-caption.caption_text_syle_lowercase {
+    text-transform: lowercase;
+}
+.image-with-text p.iwt-caption.caption_text_syle_uppercase {
+    text-transform: uppercase;
+}
+/* Tagline Aligment */
+.image-with-text p.iwt-caption.iwt_caption_aligment_left {
+    text-align: left;
+}
+.image-with-text p.iwt-caption.iwt_caption_aligment_center {
+    text-align: center;
+}
+.image-with-text p.iwt-caption.iwt_caption_aligment_right {
+    text-align: right;
+}
+
+/* Button */
+.image-with-text .iwt-button {
+  font-size: 14px;
+}
+.image-with-text .iwt-button[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+/* Button Aligment */
+.image-with-text .iwt_button_aligment_left {
+    text-align: left;
+}
+.image-with-text .iwt_button_aligment_center {
+    text-align: center;
+}
+.image-with-text .iwt_button_aligment_right {
+    text-align: right;
+}
+.image-with-text a.iwt-button.order-now-btn.iwt_button_outline {
+    background-color: #fff;
+    color: #1B2231;
+    border: 2px solid #1b222d;
+    font-weight: 500;
+}
+
+/* image */
+.image-with-text-items .iwt-image {
+  width: 90vw;
+  text-align: center;
+  margin: 0 auto 15px;
+}
+/* Placeholder Image */
+.iwt-image .placeholder-svg {
+  max-width: 100%;
+}
+
+/* First Image */
+/* Content aligmnet */
+.image-with-text-items.first_image .content_alignment_left {
+  text-align: left;
+}
+.image-with-text-items.first_image .content_alignment_center {
+  text-align: center;
+}
+.image-with-text-items.first_image .content_alignment_right {
+  text-align: right;
+}
+
+/* Second Image */
+/* Content aligmnet */
+.image-with-text-items.second_image .content_alignment_left {
+  text-align: left;
+}
+.image-with-text-items.second_image .content_alignment_center {
+  text-align: center;
+}
+.image-with-text-items.second_image .content_alignment_right {
+  text-align: right;
+}
+/* Top Image */
+/* Content aligmnet */
+.image-with-text-items.top_image .content_alignment_left {
+  text-align: left;
+}
+.image-with-text-items.top_image .content_alignment_center {
+  text-align: center;
+}
+.image-with-text-items.top_image .content_alignment_right {
+  text-align: right;
+}
+/* top  Image */
+
+.image-with-text-items.top_image .iwt-image {
+  text-align: center;
+}
+/* Bottom Image */
+.image-with-text-items.bottom_image {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
+}
+.image-with-text-items.bottom_image .iwt-image {
+  margin: 15px auto 0px;
+  text-align: center;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+  /* Heading Size */
+  .image-with-text-items .iwt-content h2.iwt_heading_small {
+    font-size: 25px;
+  }
+  .image-with-text-items .iwt-content h2.iwt_heading_medium {
+    font-size: 30px;
+  }
+  .image-with-text-items .iwt-content h2.iwt_heading_large {
+    font-size: 35px;
+  }
+  .image-with-text p {
+    font-size: 0.9em;
+  }
+  /* Button */
+  .image-with-text .iwt-button {
+    font-size: 16px;
+  }
+  /* Items */
+  .image-with-text .image-with-text-items {
+    display: flex;
+  }
+  /* Content  */
+  .image-with-text .image-with-text-items .iwt-content {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  /* image */
+  .image-with-text-items .iwt-image {
+    flex: 0 0 auto;
+    width: 50%;
+    text-align: unset;
+  }
+  /* First Image */
+  .image-with-text .image-with-text-items.first_image .iwt-content {
+    padding: 0px 10px 0px 30px;
+  }
+  /* content position */
+  .image-with-text-items.first_image.desktop_content_position_top {
+    align-items: flex-start;
+  }
+  .image-with-text-items.first_image.desktop_content_position_middle {
+    align-items: center;
+  }
+  .image-with-text-items.first_image.desktop_content_position_bottom {
+    align-items: flex-end;
+  }
+
+  /* Second Image */
+  .image-with-text-items.second_image {
+    flex-direction: row-reverse;
+  }
+  .image-with-text .image-with-text-items.second_image .iwt-content {
+    padding: 0px 30px 0px 10px;
+  }
+  /* content position */
+  .image-with-text-items.second_image.desktop_content_position_top {
+    align-items: flex-start;
+  }
+  .image-with-text-items.second_image.desktop_content_position_middle {
+    align-items: center;
+  }
+  .image-with-text-items.second_image.desktop_content_position_bottom {
+    align-items: flex-end;
+  }
+
+  /* Top Image */
+  .image-with-text-items.top_image {
+    flex-direction: column;
+  }
+  .image-with-text-items.top_image .iwt-image,
+  .image-with-text .image-with-text-items.top_image .iwt-content {
+    width: 100%;
+  }
+  /* Bottom Image */
+  .image-with-text-items.bottom_image .iwt-image,
+  .image-with-text .image-with-text-items.bottom_image .iwt-content {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 814px) {
+  /* Heading Size */
+  .image-with-text-items .iwt-content h2.iwt_heading_medium {
+    font-size: 32px;
+  }
+  .image-with-text-items .iwt-content h2.iwt_heading_large {
+    font-size: 38px;
+  }
+  .image-with-text p {
+    font-size: 16px;
+  }
+}

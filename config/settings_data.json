@@ -1,0 +1,11 @@
+{
+    "current": "GHMEV",
+    "presets": {
+        "GHMEV": {
+            "logo_width": 100
+        },
+        "Test": {
+            "logo_width": 13
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{{ 'page.css' | asset_url | stylesheet_tag }}
+<section class="page-wrapper">
+  <div class="page-container container">
+    <div class="page">
+      <h2>{{ page.title }}</h2>
+      <article>
+        {{ page.content }}
+      </article>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,9 @@
+{
+    "name": "Register",
+    "sections": {
+        "register": {
+            "type": "register"
+        }
+    }, 
+    "order": ["register"]
+}

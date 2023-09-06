@@ -1,0 +1,259 @@
+{{ 'banner.css' | asset_url | stylesheet_tag }}
+<style>
+  {% if section.settings.banner_overlay %}
+    .banner .banner-container.banner_overlay::before {
+      background-color: {{- section.settings.banner_overlay_color -}}
+      ;
+      opacity: 0. {{- section.settings.banner_overlay_opacity -}};
+    }
+  {% endif %}
+  {% for bannerblock_css in section.blocks %}
+
+    {% case bannerblock_css.type %}
+      {% when 'heading' %}
+      .banner-content .banner-content-container h2 {
+        margin-bottom: {{- bannerblock_css.settings.banner_heading_margin_bottom -}}
+        px
+      }
+      {% when  'paragraph' %}
+      .banner .banner-content p {
+        margin-bottom: {{- bannerblock_css.settings.banner_tagline_margin_bottom -}}
+        px
+      }
+    {% endcase %}
+  {% endfor %}
+</style>
+<!-- Banner -->
+<section class="banner">
+  <div class="banner-container {%- if section.settings.banner_overlay %} banner_overlay{% endif -%}">
+    <div class="banner-image {% if section.settings.banner_image_size == "banner_image_size_medium" %}banner_image_size_medium {%- else -%} banner_image_size_full_height {%- endif -%}">
+      {% if section.settings.banner_image != blank %}
+        <img
+          src="{{ section.settings.banner_image |  img_url: 'master' }}"
+          alt="{{ section.settings.banner_image.image.alt }}"
+          loading="lazy"
+        >
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-lifestyle-2' }}
+      {% endif %}
+    </div>
+
+    <div class="banner-content {% if section.settings.banner_content_position == 'banner_content_position_top_left' -%}banner_content_position_top_left{% elsif section.settings.banner_content_position == 'banner_content_position_top_center' -%}banner_content_position_top_center {% elsif section.settings.banner_content_position == 'banner_content_position_top_right' -%}banner_content_position_top_right {%- elsif section.settings.banner_content_position == 'banner_content_position_bottom_right' -%} banner_content_position_bottom_right {%- elsif section.settings.banner_content_position == 'banner_content_position_middle_left' -%}banner_content_position_middle_left {% elsif section.settings.banner_content_position == 'banner_content_position_middle_center' -%}banner_content_position_middle_center {%- elsif section.settings.banner_content_position == 'banner_content_position_middle_right' %}banner_content_position_middle_right {%- elsif section.settings.banner_content_position == 'banner_content_position_bottom_left' -%}banner_content_position_bottom_left {%- elsif section.settings.banner_content_position == 'banner_content_position_bottom_center' %} banner_content_position_bottom_center  {%- else -%} banner_content_position_bottom_right {%- endif -%}">
+      <div class="banner-content-container container">
+        {% for bannerBlocks in section.blocks %}
+          {% case bannerBlocks.type %}
+            {% when 'heading' %}
+              <h2 class="{% if bannerBlocks.settings.banner_heading_size == 'banner_heading_size_small' -%} banner_heading_size_small {% elsif bannerBlocks.settings.banner_heading_size == 'banner_heading_size_medium' -%} banner_heading_size_medium {% else -%} banner_heading_size_large {%- endif -%}">
+                {{ bannerBlocks.settings.banner_heading }}
+              </h2>
+
+            {% when 'paragraph' %}
+              <div class="{%- if bannerBlocks.settings.banner_tagline_size == "banner_tagline_size_small" -%} banner_tagline_size_small {%- elsif bannerBlocks.settings.banner_tagline_size == "banner_tagline_size_medium" -%} banner_tagline_size_medium {%- else -%} banner_tagline_size_large {%- endif -%}">
+                {{ bannerBlocks.settings.banner_tagline }}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "label": "Select image",
+      "id": "banner_image"
+    },
+    {
+      "type": "select",
+      "label": "Image Size",
+      "id": "banner_image_size",
+      "options": [
+        {
+          "label": "Medium",
+          "value": "banner_image_size_medium"
+        },
+        {
+          "label": "Full height",
+          "value": "banner_image_size_full_height"
+        }
+      ],
+      "default": "banner_image_size_medium"
+    },
+    {
+      "type": "select",
+      "label": "Desktop content position",
+      "id": "banner_content_position",
+      "options": [
+        {
+          "label": "Top left",
+          "value": "banner_content_position_top_left"
+        },
+        {
+          "label": "Top center",
+          "value": "banner_content_position_top_center"
+        },
+        {
+          "label": "Top right",
+          "value": "banner_content_position_top_right"
+        },
+        {
+          "label": "Middle left",
+          "value": "banner_content_position_middle_left"
+        },
+        {
+          "label": "Middle center",
+          "value": "banner_content_position_middle_center"
+        },
+        {
+          "label": "Middle right",
+          "value": "banner_content_position_middle_right"
+        },
+        {
+          "label": "Bottom left",
+          "value": "banner_content_position_bottom_left"
+        },
+        {
+          "label": "Bottom center",
+          "value": "banner_content_position_bottom_center"
+        },
+        {
+          "label": "Bottom right",
+          "value": "banner_content_position_bottom_right"
+        }
+      ],
+      "default": "banner_content_position_middle_center"
+    },
+    {
+      "type": "header",
+      "content": "Banner Overlay"
+    },
+    {
+      "type": "checkbox",
+      "label": "Enable overlay",
+      "id": "banner_overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "label": "Overlay color",
+      "id": "banner_overlay_color",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "label": "Opacity",
+      "id": "banner_overlay_opacity",
+      "min": 0,
+      "max": 9,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "banner_heading",
+          "default": "Image banner"
+        },
+        {
+          "type": "select",
+          "label": "Heading size",
+          "id": "banner_heading_size",
+          "options": [
+            {
+              "label": "Small",
+              "value": "banner_heading_size_small"
+            },
+            {
+              "label": "Medium",
+              "value": "banner_heading_size_medium"
+            },
+            {
+              "label": "Large",
+              "value": "banner_heading_size_large"
+            }
+          ],
+          "default": "banner_heading_size_medium"
+        },
+        {
+          "type": "range",
+          "label": "Bottom margin",
+          "id": "banner_heading_margin_bottom",
+          "min": 0,
+          "max": 25,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        }
+      ]
+    },
+    {
+      "name": "Paragraph",
+      "type": "paragraph",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "banner_tagline",
+          "default": "<p>Give customers details about the banner image(s) or content on the template</p>"
+        },
+        {
+          "type": "select",
+          "label": "Content Size",
+          "id": "banner_tagline_size",
+          "options": [
+            {
+              "label": "Small",
+              "value": "banner_tagline_size_small"
+            },
+            {
+              "label": "Medium",
+              "value": "banner_tagline_size_medium"
+            },
+            {
+              "label": "Large",
+              "value": "banner_tagline_size_large"
+            }
+          ],
+          "default": "banner_tagline_size_medium"
+        },
+        {
+          "type": "range",
+          "label": "Bottom margin",
+          "id": "banner_tagline_margin_bottom",
+          "min": 0,
+          "max": 25,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Image",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -2,7 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    {% if settings.favicon != blank %}
+      <link
+        rel="icon"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+        type="image/png" />
+    {% endif %}
     <!-- Font awesome CDN -->
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -15,17 +22,12 @@
       rel="preconnect"
       href="https://fonts.gstatic.com"
       crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Actor&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Actor&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>
       {{ shop.name }}
     </title>
     {{ content_for_header }}
-
     {{ 'base.css' | asset_url | stylesheet_tag }}
-
   </head>
   <body>
     {% section 'header' %}
@@ -33,9 +35,9 @@
     <main role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
-    <footer>
-      {% section 'footer' %}
-    </footer>
+
+    {% section 'footer' %}
+
 
   </body>
 </html>

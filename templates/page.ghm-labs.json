@@ -1,0 +1,9 @@
+{
+    "name": "Ghm labs",
+    "sections": {
+        "ghm_labs": {
+            "type": "ghm_labs"
+        }
+    },
+    "order": ["ghm_labs"]
+}

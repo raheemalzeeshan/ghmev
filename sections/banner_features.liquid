@@ -1,0 +1,78 @@
+{{ 'banner_features.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .banner-features {
+    background-color: {{ section.settings.banner_features_background_color }}
+    ;
+  }
+</style>
+
+{% if section.settings.banner_features_checkbox %}
+  <div class="banner-features">
+    <div class="banner-features-container container">
+      <div class="banner-features-itmes">
+        {% for item_block in section.blocks %}
+          {% case item_block.type %}
+            {% when 'features_item' %}
+              <div class="banner-features-item">
+                {% if item_block.settings.banner_features_image != blank %}
+                  <img src="{{ item_block.settings.banner_features_image | img_url: 'master' -}}" alt="">
+                {% endif %}
+                <h3>{{ item_block.settings.banner_features_heading }}</h3>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Banner features",
+  "settings": [
+    {
+      "type": "color",
+      "label": "Background color",
+      "id": "banner_features_background_color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "label": "Banner features show/hide",
+      "id": "banner_features_checkbox",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Items",
+      "type": "features_item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Select image",
+          "id": "banner_features_image"
+        },
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "banner_features_heading",
+          "default": "Heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner features",
+      "blocks": [
+        {
+          "type": "features_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,93 +1,264 @@
 {{ 'footer.css' | asset_url | stylesheet_tag }}
-<div class="footer-wrap">
+<style>
+  footer {
+    margin-top: {{- section.settings.footer_top_margin -}}
+    px;
+    padding-top: {{- section.settings.footer_top_padding -}}
+    px;
+    padding-bottom: {{- section.settings.footer_bottom_padding -}}
+    px;
+  }
+</style>
+
+<div class="footer-wrapper">
   <div class="footer-container container">
-    <!-- footer items -->
-    <div class="footer-items">
-      <!-- Footer Detail -->
-      <div class="footer-details">
-        <div class="footer-media">
-          {% if section.settings.section-footer-logo %}
-            <img src="{{ section.settings.section-footer-logo | img_url: 'master' }}" alt="" />
-          {% else %}
-            {{ 'image' | placeholder_svg_tag: "placeholder-image" }}
+    <!-- Footer group items-->
+    <div class="footer-group-items">
+      <!-- Footer col left-->
+      <div class="footer-col-left">
+        {% for footer-left-blocks in section.blocks %}
+          {% case footer-left-blocks.type %}
+            {% when "brand-information" %}
+              <div class="brand-information footer-col-left-item">
+              <!-- Footer Logo-->
+              {% if footer-left-blocks.settings.footer_brand_logo %}
+                <a
+                  href="/"
+                  class="footer-logo-img"
+                  rel="noopener noreferrer">
+                  <img src="{{ footer-left-blocks.settings.footer_brand_logo | img_url: 'master' }}" alt="" />
+                </a>
+
+              {% else %}
+                <h4 class="footer-logo">{{ shop.name | upcase }}</h4>
+              {% endif %}
+              <!-- Footer Description (about us)-->
+              <p class="footer_description">
+                {{ footer-left-blocks.settings.footer_description }}
+              </p>
+            </div>
+            {% when "contact-details" %}
+            <div class="contact-details footer-col-left-item">
+              <h5>
+                {{ footer-left-blocks.settings.footer_contact_heading }}
+              </h5>
+              <a href="tel:{{ footer-left-blocks.settings.footer_contact_phone }}" class="footer-item-tel">{{ footer-left-blocks.settings.footer_contact_phone }}</a>
+              <a href="mailto:{{ footer-left-blocks.settings.footer_contact_email }}" class="footer-item-mail">{{ footer-left-blocks.settings.footer_contact_email }}</a>
+            </div>
+            {% when "address-text" %}
+            <div class="footer-item-address">
+              <h5>{{ footer-left-blocks.settings.footer_address_title }}</h5>
+              <p>{{ footer-left-blocks.settings.footer_address_description }}</p>
+            </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="footer-col-right">
+        {% for footer-right-blocks in section.blocks %}
+          {% case footer-right-blocks.type %}
+            {% when 'footer-links' %}
+            <div class="footer-links">
+              <ul>
+                <h5>{{ footer-right-blocks.settings.footer_menu_heading }}</h5>
+                {% for footermenu in footer-right-blocks.settings.footer_menu_links.links %}
+                  <li>
+                    <a
+                      href="{{ footermenu.url }}"
+                      target=""
+                      rel="noopener noreferrer">{{ footermenu.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+    <!-- social media icons -->
+    {% if section.settings.footer_social_media_icons %}
+      <div class="footer-social-media-icons">
+        <div class="icons">
+          <!-- Linkedin -->
+          {% if settings.footer_social_media_linkedin %}
+            <a
+              href="{{ settings.footer_social_media_linkedin }}"
+              target="_blank"
+              rel="noopener noreferrer">
+              {% render 'icon-linkedin' %}
+            </a>
+          {% endif %}
+
+          <!-- Twitter -->
+          {% if settings.footer_social_media_twitter %}
+            <a
+              href="{{ settings.footer_social_media_twitter }}"
+              target="_blank"
+              rel="noopener noreferrer">
+              {% render 'icon-twitter' %}
+            </a>
+          {% endif %}
+          <!-- Facebook -->
+          {% if settings.footer_social_media_facebook %}
+            <a
+              href="{{ settings.footer_social_media_facebook }}"
+              target="_blank"
+              rel="noopener noreferrer">
+              {% render 'icon-facebook' %}
+            </a>
+          {% endif %}
+          <!-- Instagram -->
+          {% if settings.footer_social_media_instagram %}
+            <a
+              href="{{ settings.footer_social_media_instagram }}"
+              target="_blank"
+              rel="noopener noreferrer">
+              {% render 'icon-instagram' %}
+            </a>
+          {% endif %}
+          <!-- Youtube -->
+          {% if settings.footer_social_media_youtube %}
+            <a
+              href="{{ settings.footer_social_media_youtube }}"
+              target="_blank"
+              rel="noopener noreferrer">
+              {% render 'icon-youtube' %}
+            </a>
           {% endif %}
         </div>
-        <div class="footer-content">
-          <p>{{ section.settings.section-footer-description }}</p>
-          <!--Footer contact -->
-          <div class="footer-contact">
-            <h5>{{ section.settings.section-footer-contact-heading }}</h5>
-            <a
-              href="tel:{{- section.settings.section-footer-contact-number -}}"
-              class="footer-detail-number"
-              rel="noopener noreferrer">{{ section.settings.section-footer-contact-number }}</a>
-            <a
-              href="mailto:{{- section.settings.section-footer-contact-email -}}"
-              class="footer-detail-email"
-              rel="noopener noreferrer">{{ section.settings.section-footer-contact-email }}</a>
-          </div>
-          <!--Footer service -->
-          <div class="footer-service">
-            <h5></h5>
-            <a
-              href=""
-              class="footer-detail-number"
-              rel="noopener noreferrer"></a>
-            <a
-              href=""
-              class="footer-detail-email"
-              rel="noopener noreferrer"></a>
-          </div>
-          <!--Footer description -->
-          <p></p>
-        </div>
       </div>
-
-      <!-- Footer item -->
-
+    {% endif %}
+    <div class="footer-credit">
+      <p>{{ section.settings.footer_credit }}</p>
     </div>
   </div>
 </div>
 
 {% schema %}
   {
-    "name": "footer",
-    "tag": "section",
-    "class": "section-footer",
+    "name": "Footer",
+    "tag": "footer",
     "settings": [
       {
-        "type": "image_picker",
-        "label": "Select Logo",
-        "id": "section-footer-logo"
+        "type": "checkbox",
+        "label": "Social media icons",
+        "id": "footer_social_media_icons",
+        "info": "To display your social media accounts, link them in your theme settings.",
+        "default": true
       },
       {
-        "type": "inline_richtext",
-        "label": "Footer Description",
-        "id": "section-footer-description"
+        "type": "text",
+        "label": "Footer Credit",
+        "id": "footer_credit"
       },
       {
         "type": "header",
-        "content": "Contact Details"
+        "content": "Spacing"
       },
       {
-        "type": "text",
-        "label": "Contact Heading",
-        "id": "section-footer-contact-heading"
-      }, {
-        "type": "text",
-        "label": "Contact number",
-        "id": "section-footer-contact-number"
-      }, {
-        "type": "text",
-        "label": "Contact number",
-        "id": "section-footer-contact-email"
+        "type": "range",
+        "label": "Top margin",
+        "id": "footer_top_margin",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 0
       }, {
         "type": "header",
-        "content": "Service Support"
+        "content": "Section padding"
       }, {
-        "type": "text",
-        "label": "Service Label",
-        "id": "section-service-heading"
+        "type": "range",
+        "label": "Top padding",
+        "id": "footer_top_padding",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 20,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "label": "Top bottom",
+        "id": "footer_bottom_padding",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 20,
+        "unit": "px"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Brand Information",
+        "type": "brand-information",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "image_picker",
+            "label": "Select logo",
+            "id": "footer_brand_logo"
+          }, {
+            "type": "inline_richtext",
+            "label": "Description",
+            "id": "footer_description"
+          }
+        ]
+      }, {
+        "name": "Contact details",
+        "type": "contact-details",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Contact deatails"
+          }, {
+            "type": "text",
+            "label": "Heading",
+            "id": "footer_contact_heading",
+            "default": "Contact us"
+          }, {
+            "type": "text",
+            "label": "Phone number",
+            "id": "footer_contact_phone",
+            "default": "+91 9696969696"
+          }, {
+            "type": "text",
+            "label": "Email",
+            "id": "footer_contact_email",
+            "default": "ghmev@ghmev.com"
+          }
+        ]
+      }, {
+        "name": "Address",
+        "type": "address-text",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "label": "Heading",
+            "id": "footer_address_title",
+            "default": "Address"
+          }, {
+            "type": "inline_richtext",
+            "label": "Description",
+            "id": "footer_address_description",
+            "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
+          }
+        ]
+      }, {
+        "name": "Menu",
+        "type": "footer-links",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Heading",
+            "id": "footer_menu_heading",
+            "default": "Products"
+          }, {
+            "type": "link_list",
+            "label": "Menu",
+            "id": "footer_menu_links"
+          }
+        ]
       }
     ]
   }

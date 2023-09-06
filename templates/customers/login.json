@@ -1,0 +1,9 @@
+{
+  "name": "Login form",
+  "sections": {
+    "login": {
+      "type": "login"
+    }
+  }, "order": ["login"]
+  
+}

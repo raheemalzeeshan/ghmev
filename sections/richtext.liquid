@@ -1,0 +1,226 @@
+<style>
+  #shopify-section-{{ section.id }} .richtext {
+    margin-top: {{ section.settings.richtext-margin_top -}}
+    px;
+    margin-bottom: {{ section.settings.richtext-margin_bottom -}}
+    px;
+  }
+  #shopify-section-{{ section.id }} .richtext-container {
+    background-color: {{ section.settings.richtext_background_color -}}
+    ;
+    padding-top: {{ section.settings.richtext-padding-top -}}
+    px;
+    padding-bottom: {{ section.settings.richtext-padding-bottom -}}
+    px;
+    padding-left: {{ section.settings.richtext-padding-left -}}
+    px;
+    padding-right: {{ section.settings.richtext-padding-right -}}
+    px;
+  }
+
+  {% for richtextCSS in section.blocks %}
+    #shopify-section-{{ section.id }} .richtext h2 {
+      color: {{- richtextCSS.settings.richtext_heading_color -}}
+      ;
+    }
+    #shopify-section-{{ section.id }} .richtext p {
+      color: {{- richtextCSS.settings.richtext_description_color -}}
+      ;
+    }
+  {% endfor %}
+</style>
+
+{{ 'richtext.css' | asset_url | stylesheet_tag }}
+
+<div class="richtext">
+  <div class="richtext-container container">
+    {% for richtextBlocks in section.blocks %}
+      {% case richtextBlocks.type %}
+        {% when 'heading' %}
+          <div
+            class="richtext-heading"
+          >
+            <h2 class="{%- if richtextBlocks.settings.richtext_text_aligment == 'richtext_text_align_left' -%} richtext_text_align_left {%- elsif richtextBlocks.settings.richtext_text_aligment == 'richtext_text_align_center' -%} richtext_text_align_center {%- else -%} richtext_text_align_right {% endif -%}">
+              {{ richtextBlocks.settings.richtext_heading }}
+            </h2>
+          </div>
+        {% when 'description' %}
+          <div class="richtext_description">
+            <div class="{%- if richtextBlocks.settings.richtext_description_aligment == 'richtext_description_aligment_align_left' -%} richtext_description_aligment_align_left {%- elsif richtextBlocks.settings.richtext_description_aligment == 'richtext_description_aligment_center' -%} richtext_description_aligment_center {%- else -%} richtext_description_aligment_right {% endif -%}">
+              {{ richtextBlocks.settings.richtext_description }}
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "label": "Color",
+      "id": "richtext_background_color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "label": "Margin top",
+      "id": "richtext-margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "label": "Margin bottom",
+      "id": "richtext-margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Inner padding"
+    },
+    {
+      "type": "range",
+      "label": "Padding top",
+      "id": "richtext-padding-top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "label": "Padding bottom",
+      "id": "richtext-padding-bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "label": "Padding right",
+      "id": "richtext-padding-right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "label": "Padding left",
+      "id": "richtext-padding-left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "richtext_heading",
+          "default": "Talk about your brand"
+        },
+        {
+          "type": "select",
+          "label": "Text aligment",
+          "id": "richtext_text_aligment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "richtext_text_align_left"
+            },
+            {
+              "label": "Center",
+              "value": "richtext_text_align_center"
+            },
+            {
+              "label": "Right",
+              "value": "richtext_text_align_right"
+            }
+          ],
+          "default": "richtext_text_align_center"
+        },
+        {
+          "type": "color",
+          "label": "Color",
+          "id": "richtext_heading_color",
+          "default": "#424242"
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "type": "description",
+      "settings": [
+        {
+          "type": "richtext",
+          "label": "Description",
+          "id": "richtext_description",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+        },
+        {
+          "type": "select",
+          "label": "Description aligment",
+          "id": "richtext_description_aligment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "richtext_description_aligment_align_left"
+            },
+            {
+              "label": "Center",
+              "value": "richtext_description_aligment_center"
+            },
+            {
+              "label": "Right",
+              "value": "richtext_description_aligment_right"
+            }
+          ],
+          "default": "richtext_description_aligment_center"
+        },
+        {
+          "type": "color",
+          "label": "Color",
+          "id": "richtext_description_color",
+          "default": "#787878"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
