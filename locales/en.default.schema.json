@@ -2,8 +2,8 @@
     "cart": {
         "general": {
             "title": "Oops! Your Cart is empty!",
-            "content": "Looks like you have’nt added anything to your cart yet"s
-            "continue_browsing_html": "Continue browsing <a href=\"\">here</a>."
+            "content": "Looks like you have’nt added anything to your cart yet's",
+            "continue_browsing_html": "Continue browsing <a href=''>here</a>."
         }
     }
 }
