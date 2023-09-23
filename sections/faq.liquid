@@ -1,0 +1,96 @@
+{{ 'faq.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} .faq-wrapper .faq-container {
+      background-color: {{ section.settings.faq_bg_color }};
+      color: {{ section.settings.faq_text_color }};
+  }
+</style>
+<div class="faq-wrapper">
+  <div class="faq-container container">
+    <div class="faq">
+      <h5>FAQ</h5>
+      <div class="faq-options">
+        {% for faqitmes in section.blocks %}
+          {% case faqitmes.type %}
+            {% when 'items' %}
+              <div class="faq-item">
+                <div class="faq-item-heading">
+                  <h6>{{ faqitmes.settings.faq_item_heading }}</h6>
+                  <span class="faq-item-icon-show">{% render 'icon-plus' %}</span>
+                  <span class="faq-item-icon-hide">{% render 'icon-cross' %}</span>
+                </div>
+                <div class="faq-item-content">
+                  <p>{{ faqitmes.settings.faq_item_content }}</p>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ 'faq.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "faq",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "faq_heading",
+      "default": "Faq"
+    },
+    {
+      "type": "color",
+      "label": "Background color",
+      "id": "faq_bg_color",
+      "default": "#f4f8fc"
+    },
+    {
+      "type": "color",
+      "label": "Text color",
+      "id": "faq_text_color",
+      "default": "#0f0f0f"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Faq items",
+      "type": "items",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Faq heading",
+          "id": "faq_item_heading",
+          "default": "Faq heading"
+        },
+        {
+          "type": "inline_richtext",
+          "label": "Faq Content",
+          "id": "faq_item_content",
+          "default": "This is faq content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "faq",
+      "blocks": [
+        {
+          "type": "items"
+        },
+        {
+          "type": "items"
+        },
+        {
+          "type": "items"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

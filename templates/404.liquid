@@ -1,1 +1,15 @@
-<h2>Page Not Found</h2>
+{{ 'error-404.css' | asset_url | stylesheet_tag }}
+<section>
+  <div class="error-404-wrapper">
+    <div class="error-404-container container">
+      <div class="error-404-media">
+        {% render 'icon-error-404' %}
+      </div>
+      <div class="error-404-content">
+        <h3>Page not found!</h3>
+        <p>We're sorry, the page you requested could not be found. Please go back to the homepage!</p>
+        <a href="/" rel="noopener noreferrer">Go Homepage</a>
+      </div>
+    </div>
+  </div>
+</section>

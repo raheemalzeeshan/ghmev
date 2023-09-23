@@ -7,9 +7,12 @@
 
 :root {
   --primary-font: "Lexend Deca", sans-serif;
+  --lexendExa-font: "Lexend Exa", sans-serif;
   --actor-font: "Actor", sans-serif;
   --lato-font: "Lato", sans-serif;
   --inter-font: "Inter", sans-serif;
+  --montserrat-font: "Montserrat", sans-serif;
+  --poppins-font: "Poppins", sans-serif;
 }
 h1,
 h2,
@@ -17,7 +20,8 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+span {
   font-family: var(--primary-font);
 }
 img {
@@ -28,6 +32,7 @@ a {
   text-decoration: none;
 }
 ul {
+  font-family: var(--primary-font);
   list-style: none;
 }
 label {
@@ -36,7 +41,8 @@ label {
   font-weight: 400;
 }
 input,
-input::placeholder {
+input::placeholder,
+textarea {
   font-family: var(--primary-font);
   font-size: 16px;
   color: rgba(0, 0, 0, 0.31);
@@ -45,7 +51,26 @@ input::placeholder {
 input:focus-visible {
   outline: none;
 }
+/* Form dynamic button */
+.shopify-challenge__container .shopify-challenge__button {
+  background: #000;
+  color: #fff;
+  padding: 10px 62px;
+  border-radius: 5px;
+  margin: 25px auto 30px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.shopify-challenge__container .shopify-challenge__message,
+.shopify-challenge__container .shopify-challenge__errors {
+  text-align: center;
+  margin: 35px 0px 20px;
+  font-size: 19px;
+}
 
+.shopify-challenge__container .shopify-challenge__errors {
+  color: #f00;
+}
 .hide-onMobile {
   display: none;
 }
@@ -77,7 +102,38 @@ input:focus-visible {
   max-width: 100%;
   height: auto;
 }
-
+/* Placeholder product-2 */
+svg.product-2 {
+  background-color: #384646;
+}
+svg.product-2 path {
+  fill: #59b1ab;
+}
+/* Placeholder product 5 */
+svg.product-5 {
+  width: 18px;
+  height: 18px;
+  background-color:  #fff;
+  margin-right: 10px;
+  border-radius: 20px;
+}
+svg.product-5 path {
+  fill: #000;
+}
+/* Placeholder lifestyle 1 */
+svg.placeholder-lifestyle-1 {
+  background: #f7b110;
+}
+svg.placeholder-lifestyle-1  path {
+  fill: #2e384f;
+}
+/* Placeholder product 6 */
+svg.product-6 {
+  background-color: #eebed3;
+}
+svg.product-6 path {
+  fill: #383a48;
+}
 /* Form */
 .errors {
   font-family: var(--inter-font);
@@ -85,6 +141,9 @@ input:focus-visible {
   padding-top: 10px;
   padding-bottom: 10px;
   color: #f00;
+}
+.errors ul li a {
+  display: block;
 }
 .customer-form-wrapper {
   background-color: #fff;
@@ -207,7 +266,7 @@ input:focus-visible {
   color: #fff;
   font-family: var(--inter-font);
   width: 100%;
-    padding: 8px 0;
+  padding: 8px 0;
   cursor: pointer;
 }
 /* Login Link */
@@ -219,11 +278,11 @@ input:focus-visible {
   margin: 16px 0;
 }
 /* Register Form */
-.register-form .register-form-condition  {
+.register-form .register-form-condition {
   margin-top: 1rem;
 }
 .register-form > p {
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
 }
 .register-form .register-form-condition p {
   display: inline-block;
@@ -251,23 +310,72 @@ input:focus-visible {
   text-align: center;
   margin: 1rem 0px;
 }
-.reset-password  .reset-new-password-group{
+.reset-password .reset-new-password-group {
   margin-bottom: 1.5rem;
 }
 .reset-password .reset-password-btn {
-    font-family: var(--inter-font);
-    font-size: 14px;
-    padding: 8px 0;
-    cursor: pointer;
+  font-family: var(--inter-font);
+  font-size: 14px;
+  padding: 8px 0;
+  cursor: pointer;
 }
 
+/* Slick Slider Arrows */
+.slick-prev,
+.slick-next {
+  background: rgba(0, 0, 0, 0.5);
+  border: 0;
+  border-radius: 35px;
+  cursor: pointer;
+  min-height: 43px;
+  min-width: 43px;
+  opacity: 1;
+  outline: 0;
+  position: absolute;
+  transition: all 0.5s;
+  z-index: 999;
+}
+.slick-prev:before,
+.slick-next:before {
+  color: #fff;
+  display: block;
+  font-family: "Font Awesome 6 Free";
+  font-size: 20px;
+  font-weight: 900;
+  position: relative;
+  text-align: center;
+  z-index: 9999;
+}
+.slick-prev:before {
+  content: "\f053";
+}
+.slick-next:before {
+  content: "\f054";
+}
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+  color: #fff;
+  outline: none;
+  background: rgba(0, 0, 0, 0.8);
+}
+.slick-prev {
+  left: 0;
+}
+.slick-next {
+  right: 0;
+}
+button.slick-prev.slick-arrow.slick-disabled,
+button.slick-next.slick-arrow.slick-disabled {
+  display: none !important;
+}
 
 @media only screen and (min-width: 500px) {
   /* Placeholders */
-  .placeholder-svg{
+  .placeholder-svg {
     max-width: 400px;
   }
-      
 }
 @media only screen and (min-width: 900px) {
   .hide-onDesktop {
@@ -278,7 +386,7 @@ input:focus-visible {
   .placeholder-product-5 {
     margin-right: 2rem;
   }
-  
+
   /* Form */
   .customer-form-wrapper .customer-form {
     width: 80%;

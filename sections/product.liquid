@@ -1,0 +1,197 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'product.css' | asset_url | stylesheet_tag }}
+<div class="main-product-wrapper">
+  <div class="main-product-container container">
+    <!-- Product -->
+    <div class="main-product">
+      <div class="main-product-container">
+        <div class="main-product-card">
+          <!-- Col Left -->
+          <div class="main-product-col-left">
+            <div class="main-product-col-left-sliders">
+              {% for productImage in product.images %}
+                <div class="main-product-col-left-slide">
+                  <img
+                    src="{{ productImage.src | img_url: 'medium'}}"
+                    alt="{{ productImage.alt | escape }}"
+                  >
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Col Right -->
+          <div class="main-product-col-right">
+            <div class="main-product-col-content">
+              <h1>{{ product.title }}</h1>
+              <div id="epr-product-title-review" data-product-id="{{ product.id }}"></div>
+              <div class="product-description ">
+                {{ product.description | truncate: 170 }}
+              </div>
+              {% form 'product', product %}
+                <input
+                  id="product-id"
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                >
+
+                <!-- Color Optios -->
+                <div class="main-product-color-options">
+                  <fieldset>
+                    <div class="main-product-color-radio-options">
+                      {% for options in product.options_with_values %}
+                        {% assign optionName = options.name | downcase %}
+
+                        {% if optionName == 'color' %}
+                          {% for colorOptions_values in options.values %}
+                            {% assign colorName = product.variants[forloop.index0].metafields.custom.product_variant_color %}
+
+                            <div class="main-product-color-radio-options-itmes">
+                              <input
+                                {% if options.selected_value == colorOptions_values %}
+                                  checked
+                                {% endif %}
+                                type="radio"
+                                name="{{ options.name }}"
+                                value="{{ colorOptions_values }}"
+                                id="{{ options.name | handleize}}-{{ colorOptions_values | handleize }}"
+                                style="accent-color:{{- colorName -}}"
+                              >
+                              <label
+                                for="{{ options.name | handleize }}-{{ colorOptions_values | handleize }}"
+                                class="label-radio-active-color-name"
+                                style="background-color:{{- colorName -}};"
+                              >
+                              </label>
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </fieldset>
+                </div>
+                <!-- Price -->
+                {% assign originalPrice = product.selected_or_first_available_variant.compare_at_price %}
+                {% assign mrpPrice = product.selected_or_first_available_variant.price %}
+                <div class="main-product-price">
+                  <p class="main-product-price-original {% unless originalPrice > mrpPrice -%} hide-price {%- endunless -%}">
+                    {{ originalPrice | money }}
+                  </p>
+
+                  <div class="main-product-price-mrp">
+                    <p>{{ mrpPrice | money }}</p>
+                    <span class="main-product-save-amount">
+                      {%- if product.compare_at_price > product.price %}
+                        save Rs
+                        {{
+                          product.compare_at_price
+                          | minus: product.price
+                          | money_without_currency
+                          | replace: ',', ''
+                        -}}
+                      {% endif -%}
+                    </span>
+                  </div>
+                </div>
+                <!-- Limited deal -->
+                {% if product.metafields.custom.show_limited_offer_badge == true %}
+                  <p
+                    class="main-product-limited-deal  {% if product.price == 0 %} hide-price {% endif %}"
+                  >
+                    Limited time deal
+                  </p>
+                {% endif %}
+
+                <!-- Product features -->
+                <div class="main-product-features">
+                  <div class="main-product-features-container">
+                    {% if product.metafields.custom.product_feature_heading != blank %}
+                      <h5>{{ product.metafields.custom.product_feature_heading }}</h5>
+                    {% endif %}
+                    <div class="main-product-feature">
+                      {% if product.metafields.custom.product_features_speed != blank %}
+                        <div class="main-product-feature-speed main-product-feature-item">
+                          <p>{% include 'icon-speed' %} Top Speed</p>
+                          <h6>{{ product.metafields.custom.product_features_speed }}</h6>
+                        </div>
+                      {% endif %}
+                      {% if product.metafields.custom.product_features_range != blank %}
+                        <div class="main-product-feature-range main-product-feature-item">
+                          <p>{% include 'icon-time' %} Range</p>
+                          <h6>{{ product.metafields.custom.product_features_range }}</h6>
+                        </div>
+                      {% endif %}
+                      {% if product.metafields.custom.product_features_time != blank %}
+                        <div class="main-product-feature-time main-product-feature-item">
+                          <p>{% include 'icon-range' %} Time</p>
+                          <h6>{{ product.metafields.custom.product_features_time }}</h6>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% if product.selected_or_first_available_variant.available %}
+                  <input type="submit" value="Add to cart">
+                {% else %}
+                  <input type="submit" value="Out of stock" disabled>
+                {% endif %}
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ 'product.js' | asset_url | script_tag }}
+{{ 'format-money.js' | asset_url | script_tag }}
+<script>
+  let product = {{ product | json }}
+  console.log(product)
+  document.querySelectorAll(".main-product-color-options fieldset input[type='radio']").forEach((radio)=>{
+    radio.addEventListener("change",()=>{
+      let selectOptions = [];
+      document.querySelectorAll(".main-product-color-options fieldset input[type='radio']:checked").forEach((radioChecked)=>{
+        selectOptions.push(radioChecked.value)
+      });
+
+      let findOptions = product.variants.find( variant => {
+        let pass = true
+        for( let i =0; i < selectOptions.length; i++ ) {
+          if(selectOptions.indexOf(variant.options[i]) === -1){
+            pass = false
+            break
+          }
+        }
+        return pass
+      })
+
+      document.querySelector("#product-id").value = findOptions.id
+
+      //Changing price
+      document.querySelector(".main-product-price-original").textContent = formatMoney(findOptions.compare_at_price, "{{ shop.money_format }}" );
+      document.querySelector(".main-product-price-mrp p").textContent = formatMoney(findOptions.price, "{{ shop.money_format }}" );
+
+      //Adding hide class and removing class
+     if(findOptions.compare_at_price > findOptions.price ) {
+        document.querySelector(".main-product-price-original").classList.remove("hide-price")
+        document.querySelector(".main-product-save-amount").classList.remove("hide-price")
+      } else {
+        document.querySelector(".main-product-price-original").classList.add("hide-price");
+        document.querySelector(".main-product-save-amount").classList.add("hide-price");
+      }
+
+      //Finding alt image text
+      let getProductTitle = findOptions.title.toLowerCase();
+    });
+  } )
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section"
+}
+{% endschema %}

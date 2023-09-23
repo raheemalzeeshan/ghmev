@@ -1,0 +1,9 @@
+{
+    "name": "about",
+    "sections": {
+        "about": {
+            "type": "about"
+        }
+    },
+    "order": ["about"]
+}

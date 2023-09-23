@@ -1,0 +1,129 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'thumbnail-sliders.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} .thumbnail-sliders-wrapper {
+    margin-top: {{ section.settings.thumbanil_slide_margin_top -}}px;
+    margin-bottom: {{ section.settings.thumbanil_slide_margin_top -}}px;
+  }
+</style>
+<div class="thumbnail-sliders-wrapper">
+  <div class="thumbnail-sliders-container container">
+    <div class="thumbnail-slides">
+      {% for thumbanilSliders in section.blocks %}
+        {% case thumbanilSliders.type %}
+          {% when 'slide' %}
+            <div class="thumbnail-slide">
+              <a
+                {% if section.settings.thumbnail_sliders_link != blank %}
+                  href="{{- section.settings.thumbnail_sliders_link -}}" target="_blank"
+                {% else %}
+                  href="javascript:void(0)"
+                {% endif %}
+                rel="noopener noreferrer"
+              >
+                {% if thumbanilSliders.settings.thumbnail_slide_image != blank %}
+                  <img
+                    src="{{- thumbanilSliders.settings.thumbnail_slide_image | img_url: 'master' }}"
+                    alt="{{- thumbanilSliders.alt -}}"
+                  >
+                {% else %}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-lifestyle-1' }}
+                {% endif %}
+                <div class="thumbnail-slide-content-wrapper">
+                  <div class="thumbnail-slide-content">
+                    <h3>{{- thumbanilSliders.settings.thumbanil_slide_heading -}}</h3>
+                    <p>{{- thumbanilSliders.settings.thumbanil_slide_text -}}</p>
+                    <p class="thumbnail-slide-source">{{- thumbanilSliders.settings.thumbanil_slide_source -}}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{{ 'thumbnail-sliders.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Thumbnail sliders",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "url",
+      "label": "Link Slider",
+      "id": "thumbnail_sliders_link"
+    },
+    {
+      "type": "range",
+      "label": "Margin top",
+      "id": "thumbanil_slide_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "label": "Margin bottom",
+      "id": "thumbanil_slide_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "thumbnail_slide_image"
+        },
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "thumbanil_slide_heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "label": "Text",
+          "id": "thumbanil_slide_text",
+          "default": "This is thumbanil slide text"
+        },
+        {
+          "type": "text",
+          "label": "Source name",
+          "id": "thumbanil_slide_source",
+          "default": "-Source"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Thumbnail sliders",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

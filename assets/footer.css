@@ -137,4 +137,7 @@ footer .footer-links ul li a {
   .footer-credit p {
     font-size: 16px;
   }
+  .footer-credit p a {
+    color: #4f46e5;
+  }
 }

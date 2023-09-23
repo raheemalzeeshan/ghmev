@@ -14,7 +14,7 @@
           <div class="main-logo">
             <a href="{{ shop.url }}" rel="noopener noreferrer">
               {%- if settings.brand_logo != blank -%}
-                <img src="{{ settings.brand_logo | img_url: 'master' }}" alt="{{ site.name }}" />
+                <img src="{{ settings.brand_logo | img_url: 'master' }}" alt="{{ site.name }}">
               {%- else -%}
                 <h1>{{ shop.name | capitalize }}</h1>
               {%- endif -%}
@@ -25,6 +25,7 @@
             <a href="{{ routes.cart_url }}" rel="noopener noreferrer">
               {% render 'icon-cart' %}
             </a>
+
             <!-- Menu Bar -->
             <div class="menu-bar">
               <span></span>
@@ -56,7 +57,6 @@
                       </li>
                     {%- endfor -%}
                   </ul>
-
                 </div>
               {%- endif -%}
             </li>
@@ -68,15 +68,19 @@
             <a
               class="register-btn"
               href="{{ routes.account_login_url }}"
-              rel="noopener noreferrer">My Account</a>
+              rel="noopener noreferrer"
+              >My Account</a
+            >
           {% else %}
             <a
               class="register-btn"
               href="{{ routes.account_url }}"
-              rel="noopener noreferrer">
-              Login / Register</a>
+              rel="noopener noreferrer"
+            >
+              Login / Register</a
+            >
           {% endif %}
-      {% else %}
+        {% else %}
 
         {% endif %}
       </div>
@@ -86,7 +90,10 @@
           <a
             class="book-ride-btn"
             href=""
-            rel="noopener noreferrer">{{ section.settings.nav_button }}</a>
+            rel="noopener noreferrer"
+          >
+            {{- section.settings.nav_button -}}
+          </a>
         {%- endif -%}
 
         {% if shop.customer_accounts_enabled %}
@@ -94,13 +101,18 @@
             <a
               class="my-account hide-onMobile"
               href="{{ routes.account_url }}"
-              rel="noopener noreferrer">My Account</a>
-            {{ 'logout' | customer_logout_link }}
+              rel="noopener noreferrer"
+            >
+              My account
+            </a>
+
           {% else %}
             <a
               class="my-account hide-onMobile"
               href="{{ routes.account_url }}"
-              rel="noopener noreferrer">Login</a>
+              rel="noopener noreferrer"
+              >Login</a
+            >
           {% endif %}
         {% endif %}
         <!-- Cart Icon -->
@@ -108,7 +120,6 @@
           <a href="{{ routes.cart_url }}" rel="noopener noreferrer">
             {% render 'icon-cart' %}
           </a>
-
         </span>
       </div>
     </div>
@@ -118,27 +129,28 @@
 
 {{ 'header.js' | asset_url | script_tag }}
 
-
 {% schema %}
-  {
-    "name": "Header",
-    "tag": "section",
-    "class": "top-header",
-    "settings": [
-      {
-        "type": "link_list",
-        "label": "Select Menu",
-        "id": "navigation_links"
-      }, {
-        "type": "text",
-        "label": "Button",
-        "id": "nav_button"
-      }, {
-        "type": "checkbox",
-        "label": "Show button",
-        "id": "show_nav_button",
-        "default": true
-      }
-    ]
-  }
+{
+  "name": "Header",
+  "tag": "section",
+  "class": "top-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "label": "Select Menu",
+      "id": "navigation_links"
+    },
+    {
+      "type": "text",
+      "label": "Button",
+      "id": "nav_button"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show button",
+      "id": "show_nav_button",
+      "default": true
+    }
+  ]
+}
 {% endschema %}

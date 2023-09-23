@@ -1,0 +1,158 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'carousel-sliders.css' | asset_url | stylesheet_tag }}
+
+<div class="carousel-sliders-wrapper">
+  <div class="carousel-sliders-container container">
+    <h2>{{- section.settings.carousel_sliders_heading -}}</h2>
+    <p>{{- section.settings.carousel_sliders_caption -}}</p>
+    <div class="carousel-sliders">
+      {% for carouselSlide in section.blocks %}
+        {% case carouselSlide.type %}
+          {% when 'slide' %}
+            <div class="carousel-slider">
+              <a
+                {% if carouselSlide.settings.carousel_slide_link == blank %}
+                  href="javascript:void(0)"
+                {% else %}
+                  href="{{- carouselSlide.settings.carousel_slide_link -}}"
+                {% endif %}
+
+                {%- if carouselSlide.settings.carousel_slide_link_newTab
+                  and carouselSlide.settings.carousel_slide_link != blank
+                -%}
+                  target="_blank"
+                {%- endif -%}
+                rel="noopener noreferrer"
+              >
+                <div class="carousel-slider-influence-box">
+                  {% if carouselSlide.settings.carousel_slide_media != blank %}
+                    <img
+                      src="{{ carouselSlide.settings.carousel_slide_media | img_url: 'master' }}"
+                      alt="{{- carouselSlide.alt -}}"
+                    >
+                  {% else %}
+                    <img src="https://placehold.co/300x150/orange/white??font=montserrat&text=Slide" alt="slide">
+                  {% endif %}
+                  <!-- Influence Bach -->
+                  <div class="carousel-slider-influence-bach">
+                    <p>
+                      {% if carouselSlide.settings.carousel_slide_bach_pic %}
+                        <span class="profile-image">
+                          <img
+                            src="{{ carouselSlide.settings.carousel_slide_bach_pic | img_url: 'master' }}"
+                            alt="{{- carouselSlide.alt -}}"
+                          >
+                        </span>
+                      {% endif %}
+                      {{ carouselSlide.settings.carousel_slide_bach_text }}
+
+                      {% if carouselSlide.settings.carousel_slide_bach_verified_icon %}
+                        <span class="carousel-slider-verified-icon">
+                          {% render 'icon-bach' %}
+                        </span>
+                      {% endif %}
+                    </p>
+                    <h3>{{- carouselSlide.settings.carousel_slide_title -}}</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{{ 'carousel-sliders.js' | asset_url | script_tag }}
+{% schema %}
+{
+  "name": "Carousel sliders",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "carousel_sliders_heading",
+      "default": "Heading"
+    },
+    {
+      "type": "text",
+      "label": "Text",
+      "id": "carousel_sliders_caption",
+      "default": "Caption"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "carousel_slide_media"
+        },
+        {
+          "type": "header",
+          "content": "Bach Details"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show bach",
+          "id": "carousel_slide_bach_showHide",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "label": "Picture",
+          "id": "carousel_slide_bach_pic"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "carousel_slide_link"
+        },
+        {
+          "type": "text",
+          "label": "Text",
+          "id": "carousel_slide_bach_text",
+          "default": "Bach name"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show verified icon",
+          "id": "carousel_slide_bach_verified_icon",
+          "default": true
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "carousel_slide_title",
+          "default": "This is demo carousel slide title"
+        },
+        {
+          "type": "checkbox",
+          "label": "Open in new tab",
+          "id": "carousel_slide_link_newTab",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carousel sliders",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

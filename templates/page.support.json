@@ -1,0 +1,9 @@
+{
+    "name": "support",
+    "sections": {
+        "support": {
+            "type": "support"
+        }
+    },
+    "order": ["support"]
+}

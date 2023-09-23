@@ -1,1 +1,95 @@
-<h2>MY Account</h2>
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'account.css' | asset_url | stylesheet_tag }}
+
+<div class="my-account-page">
+  <div class="my-account-container container">
+    <div class="my-account-header">
+      <h2>MY Account</h2>
+      <p class="my-account-logout-link hide-onMobile">
+        {{ 'logout' | customer_logout_link }}
+      </p>
+    </div>
+    <p class="my-account-username">
+      {% if customer %}
+        Hi, {{ customer.name }}
+      {% else -%}
+        <span></span>
+      {% endif %}
+    </p>
+    <div class="my-account-content">
+      <div class="my-account-content-container">
+        <h3>My Orders</h3>
+        {% if customer.orders.size != 0 %}
+          <div class="my-account-orders">
+            {%- for order in customer.orders -%}
+              <div class="my-account-order-list">
+                {% for productItems in order.line_items %}
+                  <div class="my-account-order-list-items-wrap">
+                    <div class="my-account-order-list-item-header">
+                      <div class="my-account-order-list-item-order-number">
+                        <p>
+                          Order number
+                          <span>
+                            <a
+                              href="{{ order.customer_url }}"
+                            >
+                              {{- order.name -}}
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+                      <div class="my-account-order-list-item-order-date">
+                        <p>
+                          Date placed
+                          <span>{{ order.created_at | time_tag: format: 'date' }}</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="my-account-order-list-items">
+                      <div class="my-account-order-list-item-image">
+                        <img
+                          src="{{ productItems.image | img_url: 'medium' }}"
+                          alt="{{- productItems.alt -}}"
+                        >
+                      </div>
+                      <div class="my-account-order-list-item-content">
+                        <h4>{{ productItems.title }}</h4>
+                        <p>{{ productItems.price | money }}</p>
+                        <a
+                          href="{{- productItems.url -}}"
+                          class="my-account-order-list-item-view-product"
+                          rel="noopener noreferrer"
+                          >View product</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="my-account-order-list-item-status">
+                      <!--
+                        <div class="my-account-order-list-item-order-status">
+                          {% render 'icon-tick.liquid' %}
+                          <p>{{ order.fulfillment_status }}</p>
+                        </div>
+                      -->
+                      <div class="my-account-order-payment-status">
+                        <p>
+                          Payment Status:
+                          <span>{{ order.financial_status_label }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {%- endfor -%}
+          </div>
+        {% else %}
+          <p>No Orders has been placed</p>
+        {% endif %}
+      </div>
+      <p class="my-account-logout-link hide-onDesktop">
+        {{ 'logout' | customer_logout_link }}
+      </p>
+    </div>
+  </div>
+</div>

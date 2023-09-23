@@ -1,0 +1,51 @@
+.error-404-media svg {
+    width: 300px;
+    height: auto;
+}
+.error-404-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.error-404-content {
+    text-align: center;
+}
+.error-404-content h3 {
+    color: #212529;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 28.8px;
+    margin-bottom: 8px;
+}
+.error-404-content p {
+    color: #212529;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 24px;
+    margin-bottom: 16px;
+}
+.error-404-content a {
+    background: #000;
+    color: #fff;
+    font-family: var(--inter-font);
+    font-weight: 600;
+    text-align: center;
+    line-height: 19px;
+    display: inline-block;
+    max-width: 400px;
+    width: 100%;
+    padding: 15px 0;
+    border-radius: 5px;
+}
+footer {
+    display: none;
+}
+@media only screen and (min-width: 768px){
+    .error-404-media svg {
+        width: 481px;
+        height: 331px;
+    }
+}

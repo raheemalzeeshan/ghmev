@@ -11,14 +11,16 @@
 
     {% case bannerblock_css.type %}
       {% when 'heading' %}
-      .banner-content .banner-content-container h2 {
+      #shopify-section-{{ section.id }} .banner-content .banner-content-container h2 {
+        margin-top: {{- bannerblock_css.settings.banner_heading_margin_top -}}
+        px;
         margin-bottom: {{- bannerblock_css.settings.banner_heading_margin_bottom -}}
-        px
+        px;
       }
       {% when  'paragraph' %}
-      .banner .banner-content p {
+      #shopify-section-{{ section.id }} .banner .banner-content p {
         margin-bottom: {{- bannerblock_css.settings.banner_tagline_margin_bottom -}}
-        px
+        px;
       }
     {% endcase %}
   {% endfor %}
@@ -185,6 +187,16 @@
             }
           ],
           "default": "banner_heading_size_medium"
+        },
+        {
+          "type": "range",
+          "label": "Top margin",
+          "id": "banner_heading_margin_top",
+          "min": 0,
+          "max": 25,
+          "step": 1,
+          "unit": "px",
+          "default": 24
         },
         {
           "type": "range",

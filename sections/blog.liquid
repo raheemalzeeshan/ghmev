@@ -1,0 +1,58 @@
+{{ 'blog.css' | asset_url | stylesheet_tag }}
+<div class="blog">
+  <div class="blog-container container">
+    {% assign checkBlog_posts = blog.articles_count %}
+    {% if checkBlog_posts != 0 %}
+      <h3 class="blog-heading">Blogs</h3>
+
+      <div class="blog-group">
+        {%- for blogCard in blog.articles -%}
+          <div class="blog-card">
+            <a href="{{ blogCard.url }}">
+              <!-- Image -->
+              <div class="blog-card-media">
+                {%- if blogCard.image -%}
+                  <img src="{{- blogCard.image | img_url: "master" -}}" alt="{{- blogCard.alt -}}">
+                  <noscript>
+                    <p>
+                      {{ article | img_url: '455x300', scale: 2 | img_tag: article.title }}
+                    </p>
+                  </noscript>
+                {% else %}
+                  {{- 'product-2' | placeholder_svg_tag: 'placeholder-image' -}}
+                {%- endif -%}
+              </div>
+            </a>
+            <!-- Content -->
+            <div class="blog-card-content">
+              <p class="blog-card-category">
+                {{ blog.title | escape }}
+              </p>
+              <h4>{{ blogCard.title | link_to: blogCard.url }}</h4>
+              {%- if blogCard.excerpt.size > 0 -%}
+                <p class="blog-card-description">
+                  {{- blogCard.excerpt | strip_html | truncate: 150 -}}
+                </p>
+              {% endif %}
+              <div class="blog-card-published">
+                {% render 'icon-calender' %}
+                <span>
+                  {{- blogCard.published_at | date: '%B %d, %Y' -}}
+                </span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="blog-empty">
+        <div class="blog-empty-wrap">
+          {%- render 'icon-empty-folder' -%}
+          <h6>Oops!</h6>
+          <p>no post found</p>
+          <a href="/" rel="noopener noreferrer">Go Home</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

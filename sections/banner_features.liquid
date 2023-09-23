@@ -16,7 +16,13 @@
             {% when 'features_item' %}
               <div class="banner-features-item">
                 {% if item_block.settings.banner_features_image != blank %}
-                  <img src="{{ item_block.settings.banner_features_image | img_url: 'master' -}}" alt="">
+                  <img
+                    src="{{ item_block.settings.banner_features_image | img_url: 'master' -}}"
+                    alt="{{- item_block.alt -}}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  {{ 'product-5' | placeholder_svg_tag: 'product-5' }}
                 {% endif %}
                 <h3>{{ item_block.settings.banner_features_heading }}</h3>
               </div>
@@ -59,7 +65,7 @@
           "type": "text",
           "label": "Heading",
           "id": "banner_features_heading",
-          "default": "Heading"
+          "default": "Icon"
         }
       ]
     }
@@ -68,6 +74,12 @@
     {
       "name": "Banner features",
       "blocks": [
+        {
+          "type": "features_item"
+        },
+        {
+          "type": "features_item"
+        },
         {
           "type": "features_item"
         }

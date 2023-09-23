@@ -20,10 +20,13 @@
           {% when 'item' %}
             {% if galleryBlock.settings.gallery_image != blank %}
               <div class="gallery-item">
-                <img src="{{ galleryBlock.settings.gallery_image | img_url: 'master' -}}" alt="" srcset="">
+                <img
+                  src="{{ galleryBlock.settings.gallery_image | img_url: 'master' -}}"
+                  alt="{{- galleryBlock.alt -}}"
+                >
               </div>
             {% else %}
-              {{ 'product-2' | placeholder_svg_tag: 'placeholder-image' }}
+              {{ 'product-6' | placeholder_svg_tag: 'product-6' }}
             {% endif %}
         {% endcase %}
       {% endfor %}
@@ -42,7 +45,6 @@
       "min": 0,
       "max": 3,
       "step": 1,
-      "unit": "px",
       "default": 3
     },
     {
@@ -61,7 +63,7 @@
     },
     {
       "type": "range",
-      "label": "Images row count",
+      "label": "Images row gap",
       "id": "gallery_mobile_row_gap",
       "min": 0,
       "max": 30,
@@ -71,12 +73,11 @@
     },
     {
       "type": "range",
-      "label": "Images spacing",
+      "label": "Mobile row count",
       "id": "gallery_mobile_row_count",
       "min": 0,
       "max": 3,
       "step": 1,
-      "unit": "px",
       "default": 2
     }
   ],
@@ -97,6 +98,12 @@
     {
       "name": "gallery",
       "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
         {
           "type": "item"
         }

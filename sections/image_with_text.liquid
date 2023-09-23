@@ -1,16 +1,20 @@
 <style>
-  .image-with-text {
-    padding-top: {{ section.settings.iwt_padding-top -}}
-    px;
-    padding-bottom: {{ section.settings.iwt_padding-bottom -}}
-    px;
-    margin-top: {{ section.settings.iwt_margin-top -}}
-    px;
-    margin-bottom: {{ section.settings.iwt_margin-bottom -}}
-    px;
+    .image-with-text {
+      padding-top: {{ section.settings.iwt_padding-top -}}
+      px;
+      padding-bottom: {{ section.settings.iwt_padding-bottom -}}
+      px;
+      margin-top: {{ section.settings.iwt_margin-top -}}
+      px;
+      margin-bottom: {{ section.settings.iwt_margin-bottom -}}
+      px;
+    }
+    #shopify-section-{{ section.id }} .image-with-text-items  {
+    background-color: {{ section.settings.iwt_background_color }};
+    padding-right: {{ section.settings.iwt_padding_right -}}px;
+    padding-left: {{ section.settings.iwt_padding_left -}}px;
   }
 </style>
-
 
 {{ 'image_with_text.css' | asset_url | stylesheet_tag }}
 
@@ -20,7 +24,7 @@
       <div class="image-with-text-items {%- if section.settings.desktop_image_placement == "first_image" %} first_image {%- elsif section.settings.desktop_image_placement == "second_image" %} second_image {%- elsif section. settings.desktop_image_placement == "top_image" %} top_image {%- else %} bottom_image {%- endif -%} {%- if section.settings.desktop_content_position == "desktop_content_position_top" %} desktop_content_position_top {%- elsif section.settings.desktop_content_position == "desktop_content_position_middle" %} desktop_content_position_middle {%- else %} desktop_content_position_bottom {%- endif -%}">
         <div class="iwt-image">
           {%- if section.settings.iwt_mainImage -%}
-            <img src="{{ section.settings.iwt_mainImage | img_url: 'master' }}" alt="" />
+            <img src="{{ section.settings.iwt_mainImage | img_url: 'master' }}" alt="{{- image.alt -}}" loading="lazy">
           {% else %}
             {{- 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
           {%- endif -%}
@@ -29,25 +33,34 @@
           {% for iwtcontent in section.blocks %}
             {%- case iwtcontent.type -%}
               {% when 'heading' %}
-              <h2 class="{%- if iwtcontent.settings.iwt_heading_size == "iwt_heading_small" -%} iwt_heading_small {%- elsif iwtcontent.settings.iwt_heading_size == "iwt_heading_medium" -%} iwt_heading_medium {%- else -%} iwt_heading_large {%- endif -%} {%- if iwtcontent.settings.iwt_heading_aligment == 'iwt_heading_aligment_left' %} iwt_heading_aligment_left {%- elsif iwtcontent.settings.iwt_heading_aligment == 'iwt_heading_aligment_center' %} iwt_heading_aligment_center {%- else %} iwt_heading_aligment_right {% endif -%}">
-                {{- iwtcontent.settings.iwt_heading -}}
-              </h2>
+                <h2 class="{%- if iwtcontent.settings.iwt_heading_size == "iwt_heading_small" -%} iwt_heading_small {%- elsif iwtcontent.settings.iwt_heading_size == "iwt_heading_medium" -%} iwt_heading_medium {%- else -%} iwt_heading_large {%- endif -%} {%- if iwtcontent.settings.iwt_heading_aligment == 'iwt_heading_aligment_left' %} iwt_heading_aligment_left {%- elsif iwtcontent.settings.iwt_heading_aligment == 'iwt_heading_aligment_center' %} iwt_heading_aligment_center {%- else %} iwt_heading_aligment_right {% endif -%}">
+                  {{- iwtcontent.settings.iwt_heading -}}
+                </h2>
 
               {% when 'caption' %}
-              <p class="iwt-caption {% if iwtcontent.settings.iwt_caption_text_style == 'caption_text_syle_lowercase' %} caption_text_syle_lowercase {% elsif iwtcontent.settings.iwt_caption_text_style == 'caption_text_syle_uppercase'  %} caption_text_syle_uppercase {%- else -%} caption_text_syle_default {%- endif -%} {%- if iwtcontent.settings.iwt_caption_aligment == 'iwt_caption_aligment_left' %} iwt_caption_aligment_left {%- elsif iwtcontent.settings.iwt_caption_aligment == 'iwt_caption_aligment_center' %} iwt_caption_aligment_center {%- else %} iwt_caption_aligment_right {% endif -%}">
-                {{- iwtcontent.settings.iwt_caption_text -}}</p>
+                <p class="iwt-caption {% if iwtcontent.settings.iwt_caption_text_style == 'caption_text_syle_lowercase' %} caption_text_syle_lowercase {% elsif iwtcontent.settings.iwt_caption_text_style == 'caption_text_syle_uppercase'  %} caption_text_syle_uppercase {%- else -%} caption_text_syle_default {%- endif -%} {%- if iwtcontent.settings.iwt_caption_aligment == 'iwt_caption_aligment_left' %} iwt_caption_aligment_left {%- elsif iwtcontent.settings.iwt_caption_aligment == 'iwt_caption_aligment_center' %} iwt_caption_aligment_center {%- else %} iwt_caption_aligment_right {% endif -%}">
+                  {{- iwtcontent.settings.iwt_caption_text -}}
+                </p>
 
               {%- when 'description' -%}
-              <div class="{%- if iwtcontent.settings.iwt_description_aligment == 'iwt_description_aligment_left' -%} iwt_description_aligment_left {%- elsif iwtcontent.settings.iwt_description_aligment == 'iwt_description_aligment_center' -%} iwt_description_aligment_center {%- else -%} iwt_description_aligment_right {%- endif -%}">
-                {{- iwtcontent.settings.iwt_description -}}
-              </div>
+                <div class="{%- if iwtcontent.settings.iwt_description_aligment == 'iwt_description_aligment_left' -%} iwt_description_aligment_left {%- elsif iwtcontent.settings.iwt_description_aligment == 'iwt_description_aligment_center' -%} iwt_description_aligment_center {%- else -%} iwt_description_aligment_right {%- endif -%}">
+                  {{- iwtcontent.settings.iwt_description -}}
+                </div>
 
               {%- when 'button' -%}
-              <div class="{%- if iwtcontent.settings.iwt_button_aligment == 'iwt_button_aligment_left' -%} iwt_button_aligment_left {%- elsif iwtcontent.settings.iwt_button_aligment == 'iwt_button_aligment_center' -%} iwt_button_aligment_center {%- else -%} iwt_button_aligment_right {%- endif -%}">
-                <a class="iwt-button order-now-btn {% if iwtcontent.settings.iwt_button_outline -%} iwt_button_outline {%- endif -%}" {% if iwtcontent.settings.iwt_btn_link == blank %}role="link"aria-disabled="true"{% else %}href="{{- iwtcontent.settings.iwt_btn_link -}}"{% endif %}rel="noopener noreferrer">
-                  {{- iwtcontent.settings.iwt_btn_label -}}
-                </a>
-              </div>
+                <div class="{%- if iwtcontent.settings.iwt_button_aligment == 'iwt_button_aligment_left' -%} iwt_button_aligment_left {%- elsif iwtcontent.settings.iwt_button_aligment == 'iwt_button_aligment_center' -%} iwt_button_aligment_center {%- else -%} iwt_button_aligment_right {%- endif -%}">
+                  <a
+                    class="iwt-button order-now-btn {% if iwtcontent.settings.iwt_button_outline -%} iwt_button_outline {%- endif -%}"
+                    {% if iwtcontent.settings.iwt_btn_link == blank %}
+                      role="link"aria-disabled="true"
+                    {% else %}
+                      href="{{- iwtcontent.settings.iwt_btn_link -}}"
+                    {% endif -%}
+                    rel="noopener noreferrer"
+                  >
+                    {{- iwtcontent.settings.iwt_btn_label -}}
+                  </a>
+                </div>
             {%- endcase -%}
           {% endfor %}
         </div>
@@ -57,273 +70,329 @@
 </div>
 
 {% schema %}
-  {
-    "name": "image with text",
-    "tag": "section",
-    "settings": [
-      {
-        "type": "image_picker",
-        "label": "Image",
-        "id": "iwt_mainImage"
-      },
-      {
-        "type": "select",
-        "label": "Desktop image placement",
-        "id": "desktop_image_placement",
-        "info": "Image first is the default mobile layout.",
-        "options": [
-          {
-            "label": "First image",
-            "value": "first_image"
-          }, {
-            "label": "Second image",
-            "value": "second_image"
-          }, {
-            "label": "Top image",
-            "value": "top_image"
-          }, {
-            "label": "Bottom image",
-            "value": "bottom_image"
-          }
-        ],
-        "default": "first_image"
-      },
-      {
-        "type": "select",
-        "label": "Desktop content position",
-        "id": "desktop_content_position",
-        "options": [
-          {
-            "label": "Top",
-            "value": "desktop_content_position_top"
-          }, {
-            "label": "Middle",
-            "value": "desktop_content_position_middle"
-          }, {
-            "label": "Bottom",
-            "value": "desktop_content_position_bottom"
-          }
-        ],
-        "default": "desktop_content_position_middle"
-      },
-      {
-        "type": "range",
-        "id": "iwt_margin-top",
-        "label": "Margin top",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "default": 0
-      }, {
-        "type": "range",
-        "id": "iwt_margin-bottom",
-        "label": "Margin bottom",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "default": 0
-      }, {
-        "type": "range",
-        "id": "iwt_padding-top",
-        "label": "Padding top",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "default": 0
-      }, {
-        "type": "range",
-        "id": "iwt_padding-bottom",
-        "label": "Padding bottom",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "default": 0
-      }
-    ],
-    "blocks": [
-      {
-        "name": "Heading",
-        "type": "heading",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "inline_richtext",
-            "label": "Heading",
-            "id": "iwt_heading",
-            "default": "Image with text"
-          }, {
-            "type": "select",
-            "label": "Heading Size",
-            "id": "iwt_heading_size",
-            "options": [
-              {
-                "label": "Small",
-                "value": "iwt_heading_small"
-              }, {
-                "label": "Medium",
-                "value": "iwt_heading_medium"
-              }, {
-                "label": "Large",
-                "value": "iwt_heading_large"
-              }
-            ],
-            "default": "iwt_heading_medium"
-          }, {
-            "type": "select",
-            "label": "Heading alignment",
-            "id": "iwt_heading_aligment",
-            "options": [
-              {
-                "label": "Left",
-                "value": "iwt_heading_aligment_left"
-              }, {
-                "label": "Center",
-                "value": "iwt_heading_aligment_center"
-              }, {
-                "label": "Right",
-                "value": "iwt_heading_aligment_right"
-              }
-            ],
-            "default": "iwt_heading_aligment_left"
-          }
-        ]
-      }, {
-        "name": "Caption",
-        "type": "caption",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "text",
-            "label": "Text",
-            "id": "iwt_caption_text",
-            "default": "Add A Tagline"
-          }, {
-            "type": "select",
-            "label": "Text style",
-            "id": "iwt_caption_text_style",
-            "options": [
-              {
-                "label": "Default",
-                "value": "caption_text_syle_default"
-              }, {
-                "label": "Lowercase",
-                "value": "caption_text_syle_lowercase"
-              }, {
-                "label": "Uppercase",
-                "value": "caption_text_syle_uppercase"
-              }
-            ],
-            "default": "caption_text_syle_default"
-          }, {
-            "type": "select",
-            "label": "Caption alignment",
-            "id": "iwt_caption_aligment",
-            "options": [
-              {
-                "label": "Left",
-                "value": "iwt_caption_aligment_left"
-              }, {
-                "label": "Center",
-                "value": "iwt_caption_aligment_center"
-              }, {
-                "label": "Right",
-                "value": "iwt_caption_aligment_right"
-              }
-            ],
-            "default": "iwt_caption_aligment_left"
-          }
-        ]
-      }, {
-        "name": "Description",
-        "type": "description",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "richtext",
-            "label": "Content",
-            "id": "iwt_description",
-            "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
-
-          }, {
-            "type": "select",
-            "label": "Content alignment",
-            "id": "iwt_description_aligment",
-            "options": [
-              {
-                "label": "Left",
-                "value": "iwt_description_aligment_left"
-              }, {
-                "label": "Center",
-                "value": "iwt_description_aligment_center"
-              }, {
-                "label": "Right",
-                "value": "iwt_description_aligment_right"
-              }
-            ],
-            "default": "iwt_description_aligment_left"
-          }
-        ]
-      }, {
-        "name": "Button",
-        "type": "button",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "text",
-            "label": "Button label",
-            "id": "iwt_btn_label",
-            "default": "Button label"
-          }, {
-            "type": "url",
-            "label": "Button link",
-            "id": "iwt_btn_link"
-          }, {
-            "type": "select",
-            "label": "Button alignment",
-            "id": "iwt_button_aligment",
-            "options": [
-              {
-                "label": "Left",
-                "value": "iwt_button_aligment_left"
-              }, {
-                "label": "Center",
-                "value": "iwt_button_aligment_center"
-              }, {
-                "label": "Right",
-                "value": "iwt_button_aligment_right"
-              }
-            ],
-            "default": "iwt_button_aligment_left"
-          }, {
-            "type": "checkbox",
-            "label": "Use outline button style",
-            "id": "iwt_button_outline",
-            "default": false
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "image with text",
-        "blocks": [
-          {
-            "type": "heading"
-          }, {
-            "type": "caption"
-          }, {
-            "type": "description"
-          }, {
-            "type": "button"
-          }
-        ]
-      }
-
-    ]
-
-  }
+{
+  "name": "image with text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "iwt_mainImage"
+    },
+    {
+      "type": "select",
+      "label": "Desktop image placement",
+      "id": "desktop_image_placement",
+      "info": "Image first is the default mobile layout.",
+      "options": [
+        {
+          "label": "First image",
+          "value": "first_image"
+        },
+        {
+          "label": "Second image",
+          "value": "second_image"
+        },
+        {
+          "label": "Top image",
+          "value": "top_image"
+        },
+        {
+          "label": "Bottom image",
+          "value": "bottom_image"
+        }
+      ],
+      "default": "first_image"
+    },
+    {
+      "type": "select",
+      "label": "Desktop content position",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "label": "Top",
+          "value": "desktop_content_position_top"
+        },
+        {
+          "label": "Middle",
+          "value": "desktop_content_position_middle"
+        },
+        {
+          "label": "Bottom",
+          "value": "desktop_content_position_bottom"
+        }
+      ],
+      "default": "desktop_content_position_middle"
+    },
+    {
+      "type": "color",
+      "label": "Background color",
+      "id": "iwt_background_color"
+    },
+    {
+      "type": "range",
+      "label": "Padding right",
+      "id": "iwt_padding_right",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "label": "Padding left",
+      "id": "iwt_padding_left",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "iwt_margin-top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "iwt_margin-bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "iwt_padding-top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "iwt_padding-bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "label": "Heading",
+          "id": "iwt_heading",
+          "default": "Image with text"
+        },
+        {
+          "type": "select",
+          "label": "Heading Size",
+          "id": "iwt_heading_size",
+          "options": [
+            {
+              "label": "Small",
+              "value": "iwt_heading_small"
+            },
+            {
+              "label": "Medium",
+              "value": "iwt_heading_medium"
+            },
+            {
+              "label": "Large",
+              "value": "iwt_heading_large"
+            }
+          ],
+          "default": "iwt_heading_medium"
+        },
+        {
+          "type": "select",
+          "label": "Heading alignment",
+          "id": "iwt_heading_aligment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "iwt_heading_aligment_left"
+            },
+            {
+              "label": "Center",
+              "value": "iwt_heading_aligment_center"
+            },
+            {
+              "label": "Right",
+              "value": "iwt_heading_aligment_right"
+            }
+          ],
+          "default": "iwt_heading_aligment_left"
+        }
+      ]
+    },
+    {
+      "name": "Caption",
+      "type": "caption",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "label": "Text",
+          "id": "iwt_caption_text",
+          "default": "Add A Tagline"
+        },
+        {
+          "type": "select",
+          "label": "Text style",
+          "id": "iwt_caption_text_style",
+          "options": [
+            {
+              "label": "Default",
+              "value": "caption_text_syle_default"
+            },
+            {
+              "label": "Lowercase",
+              "value": "caption_text_syle_lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "caption_text_syle_uppercase"
+            }
+          ],
+          "default": "caption_text_syle_default"
+        },
+        {
+          "type": "select",
+          "label": "Caption alignment",
+          "id": "iwt_caption_aligment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "iwt_caption_aligment_left"
+            },
+            {
+              "label": "Center",
+              "value": "iwt_caption_aligment_center"
+            },
+            {
+              "label": "Right",
+              "value": "iwt_caption_aligment_right"
+            }
+          ],
+          "default": "iwt_caption_aligment_left"
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "type": "description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "iwt_description",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+        },
+        {
+          "type": "select",
+          "label": "Content alignment",
+          "id": "iwt_description_aligment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "iwt_description_aligment_left"
+            },
+            {
+              "label": "Center",
+              "value": "iwt_description_aligment_center"
+            },
+            {
+              "label": "Right",
+              "value": "iwt_description_aligment_right"
+            }
+          ],
+          "default": "iwt_description_aligment_left"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "type": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "label": "Button label",
+          "id": "iwt_btn_label",
+          "default": "Button label"
+        },
+        {
+          "type": "url",
+          "label": "Button link",
+          "id": "iwt_btn_link"
+        },
+        {
+          "type": "select",
+          "label": "Button alignment",
+          "id": "iwt_button_aligment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "iwt_button_aligment_left"
+            },
+            {
+              "label": "Center",
+              "value": "iwt_button_aligment_center"
+            },
+            {
+              "label": "Right",
+              "value": "iwt_button_aligment_right"
+            }
+          ],
+          "default": "iwt_button_aligment_left"
+        },
+        {
+          "type": "checkbox",
+          "label": "Use outline button style",
+          "id": "iwt_button_outline",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "image with text",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "caption"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}

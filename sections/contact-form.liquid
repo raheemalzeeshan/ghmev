@@ -1,0 +1,57 @@
+{{ 'contact-form.css' | asset_url | stylesheet_tag }}
+<div class="contact-form-wrapper">
+  <div class="contact-form-container container">
+    <h2>{{ section.settings.contact_form_headig }}</h2>
+    <div class="contact-form">
+      {% form 'contact' %}
+        {{ form.errors | default_errors }}
+        <div class="contact-form-group">
+          <div class="first-name contact-form-item">
+            <label for="first-name"></label>
+            <input type="text" name="contact[first_name]" id="first-name" placeholder="First Name">
+          </div>
+          <div class="contact-form-last-name contact-form-item">
+            <label for="last-name"></label>
+            <input type="text" name="contact[last_name]" id="last-name" placeholder="Last Name">
+          </div>
+        </div>
+        <div class="contact-form-group">
+          <div class="contact-form-email contact-form-item">
+            <label for="email"></label>
+            <input type="email" name="contact[email]" id="email" placeholder="Email">
+          </div>
+          <div class="contact-form-phone contact-form-item">
+            <label for="phone"></label>
+            <input type="tel" name="contact[phone]" id="phone" placeholder="Phone Number">
+          </div>
+        </div>
+        <div class="contact-form-message contact-form-item">
+          <label for="message"></label>
+          <textarea name="contact[body]" id="message" placeholder="Message"></textarea>
+        </div>
+        <div class="contact-form-submit">
+          <input type="submit" value="Send">
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    {
+      "type": "text",
+      "label": "heading",
+      "id": "contact_form_headig",
+      "default": "GET IN TOUCH"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact form"
+    }
+  ]
+}
+{% endschema %}

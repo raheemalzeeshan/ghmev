@@ -1,0 +1,142 @@
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+<div class="cart" data-money-format="{{- shop.money_format -}}">
+  <div class="cart-container container">
+    {% if cart.item_count == 0 %}
+      <!-- Empty card -->
+      <div class="cart-empty">
+        {% render 'icon-empty' %}
+        <h5><span>Oops!</span> Your Cart is empty!</h5>
+        <p>Looks like you have’nt added anything to your cart yet</p>
+        <a href="/" rel="noopener noreferrer" class="order-now-btn cart-empty-btn">
+          {{- section.settings.cart_show_now_label -}}
+        </a>
+      </div>
+    {% else %}
+      <div class="cart-items-wrapper">
+        <h2>Your cart</h2>
+        <form action="{{ routes.cart_url }}" method="post">
+          <div class="cart-items-container">
+            <div class="cart-product-details">
+              <div class="cart-product-details-header">
+                <p>Products</p>
+                <p>Quantity</p>
+              </div>
+
+              {% for item in cart.items %}
+                <div class="cart-product-card" data-key="{{- item.key -}}">
+                  <div
+                    class="cart-product-card-item"
+                  >
+                    <div class="cart-product-card-image">
+                      {% if item.image != blank %}
+                        {{ item | img_url: '240x240' | img_tag: item.title }}
+                      {% else %}
+                        {{ 'product-2' | placeholder_svg_tag: 'placeholder-image' }}
+                      {% endif %}
+                    </div>
+                    <div class="cart-product-card-content">
+                      <h4>{{ item.product.title }}</h4>
+
+                      <div class="cart-product-card-content-items">
+                        {% for cartColor in item.options_with_values -%}
+                          {% if cartColor.name == 'Color' %}
+                            <p>{{ cartColor.name }}: {{ cartColor.value }}</p>
+                          {% endif %}
+                        {%- endfor -%}
+
+                        <p class="cart_product_qtyValue">
+                          Quantity : <span>{{ item.quantity -}}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cart-product-quantity">
+                    <div class="cart-product-quantity-container">
+                      <button class="cart-minus">
+                        {% render 'icon-minus' %}
+                      </button>
+                      <input
+                        type="text"
+                        name="updates[]"
+                        value="{{ item.quantity }}"
+                        class="cart-product-input-qty-val"
+                        autocomplete="off"
+                        readonly
+                      >
+                      <button class="cart-plus">
+                        {% render 'icon-plus' %}
+                      </button>
+                    </div>
+                    <a href="{{ item.url_to_remove }}" class="cart-product-qty-remove">
+                      {% render 'icon-remove' %}
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="cart-product-summary">
+              <h3>Order Summary</h3>
+              <div class="cart-product-summary-details">
+                <div class="cart-product-summary-option">
+                  <dt>Items</dt>
+                  <dt class="cart-product-summary-option-itemCount">{{ cart.item_count }}</dt>
+                </div>
+                <div class="cart-product-summary-option">
+                  <dt>Subtotal</dt>
+                  <dt class="cart-product-summary-option-subtotal-price">
+                    {{ cart.total_price | money }}
+                  </dt>
+                </div>
+                <div class="cart-product-summary-option">
+                  <dt>Discount</dt>
+                  <dt class="cart-product-summary-option-total-discount">{{ cart.total_discount }}</dt>
+                </div>
+                <div class="cart-product-summary-option">
+                  <dt>Delivery</dt>
+                  <dt>Free</dt>
+                </div>
+                <div class="cart-product-summary-option">
+                  <dt>Total</dt>
+                  <dt class="cart-product-summary-option-total_price">
+                    {{ cart.total_price | money }}
+                  </dt>
+                </div>
+              </div>
+              <div class="cart-product-checkout-btn">
+                {% if shop.customer_accounts_enabled %}
+                  {% if customer %}
+                    <input type="submit" name="checkout" value="Checkout" class="order-now-btn checkout-btn">
+                  {% else %}
+                    <a href="{{ routes.account_login_url }}" class="order-now-btn checkout-btn">Checkout</a>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{{ 'cart.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Text",
+      "id": "cart_show_now_label",
+      "default": "Show now"
+    },
+    {
+      "type": "url",
+      "label": "url",
+      "id": "cart_show_now_url"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+.newsletter h4 {
+    color: #fff;
+    font-family: var(--poppins-font);
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 10px 0;
+}
+.newsletter p {
+    color: #bcbcbc;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px 0;
+}
+.newsletter-form {
+    margin-top: 1.5rem;
+}
+.newsletter-form form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.newsletter-form-email {
+    width: 250px;
+}
+.newsletter-form-email input[type='email'] {
+    background-color: #242424;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+    font-weight: 300;
+    font-family: var(--montserrat-font);
+}
+.newsletter-form-email input[type='email']::placeholder {
+    color: #757575;
+}
+.newsletter-form-submit {
+    margin-left: 10px; 
+}
+.newsletter-form-submit input[type='submit'] {
+    font-family: var(--montserrat-font);
+    font-weight: 400;
+    font-size: 17px;
+    font-size: 16px;
+    background: #02b962;
+    border: 1px solid #000;
+    border-radius: 9.041px;
+    color: #fff;
+    margin: 10px 0;
+    min-width: 80px;
+    outline: none;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+    .newsletter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .newsletter h4 {
+        font-size: 24px;
+    }
+    .newsletter p {
+        text-align: center;
+    }
+    .newsletter-form {
+        margin-top: 5px;
+    }
+    .newsletter-form-email {
+        width: 250px;
+    }
+    .newsletter-form-email input[type=email] {
+        padding: 13px
+    }
+    
+    .newsletter-form-submit {
+        margin-left: 20px;
+    }
+    
+   
+}

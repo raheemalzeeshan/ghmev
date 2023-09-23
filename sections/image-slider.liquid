@@ -1,0 +1,114 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'image-slider.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .image-slider-wrapper {
+    margin-top: {{- section.settings.image-slider-top-margin -}}px;
+    margin-bottom: {{- section.settings.image-slider-bottom-margin -}}px;
+  }
+</style>
+
+<div class="image-slider-wrapper">
+  <div class="image-slider-container container">
+    <h2>{{ section.settings.image_slider_heading }}</h2>
+    <div class="main-image-slider">
+      {% for slide in section.blocks %}
+        {% case slide.type %}
+          {% when 'slide' -%}
+            <div class="image-slide">
+              <p>{{ slide.settings.image_slider_slide_heading }}</p>
+              <a
+                {% if slide.settings.image_slider_link == blank %}
+                  href="javascript:void(0)" aria-disabled="true"
+                {% else %}
+                  href="{{ slide.settings.image_slider_link }}"
+                {% endif %}
+                rel="noopener noreferrer"
+              >
+                {% if slide.settings.image_slider_img != blank %}
+                  <img src="{{ slide.settings.image_slider_img | img_url: 'master' }}" alt="{{- slide.alt -}}">
+                {% else %}
+                  <img src="https://placehold.co/600x400/1b4e60/b7d4e7?text=Slide" alt="slide-image">
+                {% endif %}
+              </a>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{{ 'image-slider.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Image slider",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "image_slider_heading",
+      "default": "Slider heading"
+    },
+    {
+      "type": "range",
+      "label": "Margin top",
+      "id": "image-slider-top-margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "label": "Margin bottom",
+      "id": "image-slider-bottom-margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Slide heading",
+          "id": "image_slider_slide_heading",
+          "default": "Slide heading"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image_slider_img"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "image_slider_link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

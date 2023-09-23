@@ -1,0 +1,71 @@
+{{ 'article.css' | asset_url | stylesheet_tag }}
+
+<article class="article">
+  <div class="article-banner">
+    {% if article.metafields.custom.article_header_image != blank %}
+      <img src="{{ article.metafields.custom.article_header_image | img_url: 'master' }}" alt="{{ image.alt }}">
+    {% else %}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-lifestyle-2' }}
+    {% endif %}
+  </div>
+  <div class="article-container container">
+    <div class="article-wrap">
+      <div class="article-content">
+        <p class="article-content-category">{{- blog.title | escape -}}</p>
+
+        <h2>{{- article.title -}}</h2>
+        <!-- Publish Date -->
+        <div class="article-content-publish-date">
+          {% render 'icon-calender' %}
+          <span>{{- article.published_at | date: '%b %d,%Y' -}}</span>
+        </div>
+        <div class="article-detail-description">
+          {{- article.content -}}
+        </div>
+      </div>
+      <div class="article-aside">
+        {% assign checkaside_posts = blog.articles_count %}
+        {% if checkaside_posts != 0 %}
+          <h5>Read More</h5>
+          <div class="article-aside-posts">
+            {%- for articleaside_card in blog.articles limit: 3 -%}
+              <div class="article-aside-post-card">
+                <div class="article-aside-post-card-img">
+                  <a href="{{ articleaside_card.url }}">
+                    {%- if articleaside_card.image -%}
+                      <img
+                        src="{{- articleaside_card.image | img_url: "master" -}}"
+                        alt="{{- articleaside_card.alt -}}"
+                      >
+                      <noscript>
+                        <p>
+                          {{ article | img_url: '455x300', scale: 2 | img_tag: article.title }}
+                        </p>
+                      </noscript>
+                    {% else %}
+                      {{- 'product-2' | placeholder_svg_tag: 'placeholder-image' -}}
+                    {%- endif -%}
+                  </a>
+                </div>
+                <div class="article-aside-post-card-content">
+                  <h6>{{- articleaside_card.title | link_to: articleaside_card.url -}}</h6>
+                  {%- if articleaside_card.excerpt.size > 0 -%}
+                    <p class="article-aside-post-description">
+                      {{- articleaside_card.excerpt | strip_html | truncate: 150 -}}
+                    </p>
+                  {% endif %}
+                  <div class="article-aside-post-card-published">
+                    {% render 'icon-calender' %}
+                    <span>
+                      {{- articleaside_card.published_at | date: '%B %d, %Y' -}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</article>

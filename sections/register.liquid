@@ -1,60 +1,59 @@
 {{ 'base.css' | asset_url | stylesheet_tag }}
 <div class="register-wrapper customer-form-wrapper">
   <div class="register-container container customer-form-container">
-    <!--Form-->
+    <!-- Form -->
     <div class="register-form customer-form">
       <h3>Create Account</h3>
-      {% form "create_customer" %}
-        <!--First Name-->
+      {% form 'create_customer' %}
+        <!-- First Name -->
         <div class="register-form-fn customer-form-group">
           <label for="first_name">First Name</label>
           <span class="customer-form-input">
-            <input type="text" name="customer[first_name]" />
+            <input type="text" name="customer[first_name]">
           </span>
         </div>
-        <!--Last Name-->
+        <!-- Last Name -->
         <div class="register-form-ln customer-form-group">
           <label for="last_name">Last Name</label>
           <span class="customer-form-input">
-            <input type="text" name="customer[last_name]" />
+            <input type="text" name="customer[last_name]">
           </span>
         </div>
-        <!--Email-->
+        <!-- Email -->
         <div class="register-form-mail customer-form-group">
           <label for="email">Email</label>
           <span class="customer-form-input">
-            <input type="email" name="customer[email]" />
+            <input type="email" name="customer[email]">
           </span>
         </div>
-        <!--Password-->
+        <!-- Password -->
         <div class="register-form-pwa customer-form-group">
           <label for="password">Password</label>
           <span class="customer-form-input">
-            <input type="password" name="customer[password]" />
+            <input type="password" name="customer[password]">
           </span>
         </div>
         <!-- Terms and conditions -->
         <div class="register-form-condition customer-form-group">
           <input type="checkbox" name="conditions">
-          <p>I agree to the
+          <p>
+            I agree to the
             <a href="" rel="noopener noreferrer">terms and conditions</a>
           </p>
-
         </div>
-        <!--Error-->
-        <p class="form-error" aria-label="error">{{ form.errors | default_errors }}</p>
-        <!-- Submit-->
+        <!-- Error -->
+        <p class="form-error" aria-label="error">
+          {{ form.errors | default_errors }}
+        </p>
+        <!-- Submit -->
         <div class="register-form-submit customer-form-submit order-now-btn">
-          <input type="submit" value="Create Account" />
+          <input type="submit" value="Create Account">
         </div>
-
       {% endform %}
       <p>
         Already have an account ?
         <a href="{{ routes.account_login_url }}" rel="noopener noreferrer">Login</a>
       </p>
     </div>
-
-
   </div>
 </div>

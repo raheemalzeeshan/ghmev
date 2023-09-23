@@ -18,8 +18,33 @@
         },
         "multicolumn": {
             "type": "multicolumn"
+        },
+        "image-slider": {
+            "type": "image-slider"
+        },
+        "carousel-sliders": {
+            "type": "carousel-sliders"
+        },
+        "thumbnail-sliders": {
+            "type": "thumbnail-sliders"
+        },
+        "collage": {
+            "type": "collage"
+        },
+        "newsletter": {
+            "type": "newsletter"
+        },
+        "contact-form": {
+            "type": "contact-form"
+        },
+        "faq": {
+            "type": "faq"
+        },
+        
+        "featured-product": {
+            "type": "featured-product"
         }
         
     },
-    "order": ["banner","image_with_text","banner_features","richtext","gallery","multicolumn"]
+    "order": ["banner","image_with_text","banner_features","richtext","gallery","multicolumn","image-slider","carousel-sliders","thumbnail-sliders","collage","newsletter","contact-form","faq","featured-product"]
 }

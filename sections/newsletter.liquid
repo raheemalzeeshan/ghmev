@@ -1,0 +1,85 @@
+{{ 'newsletter.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id}} .newsletter-wrapper {
+      background-color: {{ section.settings.newsletter_bg_color -}};
+      color: {{ section.settings.newsletter_text_color -}};
+      padding-top: {{ section.settings.newsletter_padding_top -}}px;
+      padding-bottom: {{ section.settings.newsletter_padding_bottom -}}px;
+  }
+</style>
+<div class="newsletter-wrapper">
+  <div class="newsletter-container container">
+    <div class="newsletter">
+      <h4>{{ section.settings.newsletter_heading }}</h4>
+      <p>{{ section.settings.newsletter_text }}</p>
+      <div class="newsletter-form">
+        {% form 'customer' %}
+          <div class="newsletter-form-email">
+            <label for="newsletter-email"></label>
+            <input type="email" name="contact[email]" placeholder="Enter your email" required>
+          </div>
+          <div class="newsletter-form-submit">
+            <input type="submit" value="Subscribe">
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "newsletter_heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Text",
+      "id": "newsletter_text",
+      "default": "Get special offers, free giveaways"
+    },
+    {
+      "type": "color",
+      "label": "Background color",
+      "id": "newsletter_bg_color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "label": "Text color",
+      "id": "newsletter_text_color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "label": "Padding top",
+      "id": "newsletter_padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "label": "Padding bottom",
+      "id": "newsletter_padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

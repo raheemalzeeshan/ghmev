@@ -15,9 +15,12 @@
             <div class="multicolumn-column">
               <div class="multicolumn-img">
                 {% if multicolumnBlocks.settings.multicolumn_image != blank %}
-                  <img src="{{ multicolumnBlocks.settings.multicolumn_image | img_url: 'master'}} " alt="">
+                  <img
+                    src="{{ multicolumnBlocks.settings.multicolumn_image | img_url: 'master'}} "
+                    alt="{{- multicolumnBlocks.alt -}}"
+                  >
                 {% else %}
-                  {{ 'product-2' | placeholder_svg_tag: 'placeholder-lifestyle-2' }}
+                  {{ 'product-2' | placeholder_svg_tag: 'product-2' }}
                 {% endif %}
               </div>
               <div class="multicolumn-content">
@@ -70,20 +73,18 @@
         {
           "type": "image_picker",
           "label": "Image",
-          "id": "multicolumn_image",
-          "default": "true"
+          "id": "multicolumn_image"
         },
         {
           "type": "text",
           "label": "Heading",
           "id": "multicolumn_heading",
-          "default": "Heading"
+          "default": "Column"
         },
         {
           "type": "text",
           "id": "multicolumn_label_url",
-          "label": "Label",
-          "default": "Link"
+          "label": "Label"
         },
         {
           "type": "url",
@@ -98,6 +99,12 @@
       "name": "Multicolumn",
       "category": "Multicolumn",
       "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
         {
           "type": "column"
         }

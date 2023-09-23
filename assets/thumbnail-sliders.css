@@ -1,0 +1,109 @@
+.thumbnail-slide {
+  position: relative;
+}
+.thumbnail-slide-content-wrapper {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.thumbnail-slide-content {
+  width: 290px;
+  margin: 0 auto;
+}
+.thumbnail-slide .thumbnail-slide-content h3 {
+  color: #fff;
+  font-family: var(--actor-font);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  padding-bottom: 15px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.thumbnail-slide .thumbnail-slide-content p {
+  color: #fff;
+  text-align: center;
+  font-size: 12.3px;
+  font-weight: 400;
+  width: 100%;
+}
+.thumbnail-slide .thumbnail-slide-content p.thumbnail-slide-source {
+  font-family: var(--actor-font);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media only screen and (min-width: 450px) {
+  .thumbnail-slide .thumbnail-slide-content p {
+    font-size: 14px;
+  }
+  .thumbnail-slide .thumbnail-slide-content p.thumbnail-slide-source {
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 425px) {
+  .thumbnail-slide-content {
+    width: 350px;
+  }
+}
+@media only screen and (min-width: 550px) {
+  .thumbnail-slide-content {
+    width: 480px;
+  }
+  .thumbnail-sliders-wrapper .slick-slide img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .thumbnail-sliders-wrapper .slick-slide img {
+    height: 250px;
+  }
+  .thumbnail-slide-content {
+    width: 600px;
+  }
+  .thumbnail-slide .thumbnail-slide-content h3 {
+    font-size: 22px;
+    padding-bottom: 30px;
+  }
+  .thumbnail-slide .thumbnail-slide-content p {
+    font-size: 19px;
+  }
+  .thumbnail-slide .thumbnail-slide-content p.thumbnail-slide-source {
+    font-size: 17px;
+  }
+  .thumbnail-slide .thumbnail-slide-content p.thumbnail-slide-source {
+    font-weight: 500;
+    margin-top: 40px;
+    color: rgb(255, 255, 255);
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .thumbnail-slide-content {
+    width: 730px;
+  }
+  .thumbnail-slide .thumbnail-slide-content h3 {
+    font-size: 24px;
+  }
+  .thumbnail-slide .thumbnail-slide-content p {
+    font-size: 19px;
+  }
+  .thumbnail-slide .thumbnail-slide-content p.thumbnail-slide-source {
+    font-size: 17px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .thumbnail-slide-content {
+    width: 800px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .thumbnail-slide-content {
+    width: clamp(20rem, 80vw, 50rem);
+  }
+}

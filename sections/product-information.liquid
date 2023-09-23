@@ -1,0 +1,135 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'product-information.css' | asset_url | stylesheet_tag }}
+
+{%- assign item1_text = product.metafields.custom.product_info_item1_text -%}
+{%- assign item2_text = product.metafields.custom.product_info_item2_text -%}
+{%- assign item3_text = product.metafields.custom.product_info_item3_text -%}
+
+{%- assign item1_image = product.metafields.custom.product_info_item1_image -%}
+{%- assign item2_image = product.metafields.custom.product_info_item2_image -%}
+{%- assign item3_image = product.metafields.custom.product_info_item3_image -%}
+<div class="product-wrapper">
+  <div class="product-container container">
+    <!-- Product info -->
+    {% if section.settings.product_info_show %}
+      <div class="product-info">
+        <div class="product-info-group">
+          <!-- Item One -->
+          <div class="product-info-item product-info-item-one">
+            <!-- Image -->
+            {% if item1_image != blank %}
+              <div class="product-info-item-image">
+                <img src="{{ item1_image | img_url: 'master' }}" alt="item1_image.alt">
+              </div>
+            {% endif %}
+
+            {% if item1_text != blank %}
+              <p>{{- item1_text | metafield_tag -}}</p>
+            {% endif %}
+          </div>
+          <!-- Item two -->
+          <div class="product-info-item product-info-item-two">
+            {% if item2_image != blank %}
+              <div class="product-info-item-image">
+                <img src="{{ item2_image | img_url: 'master' }}" alt="item1_image.alt">
+              </div>
+            {% endif %}
+
+            {% if item2_text != blank %}
+              <p>{{- item2_text | metafield_tag -}}</p>
+            {% endif %}
+          </div>
+          <!-- Item three -->
+          <div class="product-info-item product-info-item-three">
+            {% if item3_image != blank %}
+              <div class="product-info-item-image">
+                <img src="{{ item3_image | img_url: 'master' }}" alt="item1_image.alt">
+              </div>
+            {% endif %}
+            {% if item3_text %}
+              <p>{{- item3_text | metafield_tag -}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <!-- Product key Features -->
+
+    {%- assign keyFeatures_title = product.metafields.custom.key_features_title -%}
+    {%- assign keyFeatures_subtitle = product.metafields.custom._key_features_subtitle -%}
+
+    {%- assign kf_item01Image = product.metafields.custom.key_features_item1_image -%}
+    {%- assign kf_item02Image = product.metafields.custom.key_features_item2_image %}
+    {%- assign kf_item03Image = product.metafields.custom.key_features_item3_image %}
+
+    {%- assign kf_item01Text = product.metafields.custom.key_features_item1_text -%}
+    {%- assign kf_item02Text = product.metafields.custom.key_features_item2_text -%}
+    {%- assign kf_item03Text = product.metafields.custom.key_features_item3_text -%}
+
+    <div class="product-key-features">
+      <div class="product-key-features-container">
+        <h5>{{- keyFeatures_title -}}</h5>
+        <p>{{ keyFeatures_subtitle }}</p>
+        <div class="product-key-features-group">
+          <!-- Item 01 -->
+
+          <div class="product-key-features-item">
+            {% if kf_item01Image != blank %}
+              <div class="product-key-features-image">
+                <img src="{{ kf_item01Image | img_url: "master" }}" alt="{{- image.alt -}}">
+              </div>
+            {% endif %}
+
+            {% if kf_item01Text != blank %}
+              {{ kf_item01Text | metafield_tag }}
+            {% endif %}
+          </div>
+
+          <!-- Item 02 -->
+          <div class="product-key-features-item">
+            {% if kf_item02Image != blank %}
+              <div class="product-key-features-image">
+                <img src="{{ kf_item02Image | img_url: "master" }}" alt="{{- image.alt -}}">
+              </div>
+            {% endif %}
+            {% if kf_item02Text != blank %}
+              {{ kf_item02Text | metafield_tag }}
+            {% endif %}
+          </div>
+
+          <!-- Item 03 -->
+          <div class="product-key-features-item">
+            {% if kf_item03Image != blank %}
+              <div class="product-key-features-image">
+                <img src="{{ kf_item03Image | img_url: "master" }}" alt="{{- image.alt -}}">
+              </div>
+            {% endif %}
+            {% if kf_item03Text != blank %}
+              {{ kf_item03Text | metafield_tag }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product information",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "label": "Show product info section",
+      "id": "product_info_show",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product information"
+    }
+  ]
+}
+{% endschema %}

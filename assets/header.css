@@ -153,6 +153,7 @@
   nav .nav-right {
     display: none;
   }
+
   nav .nav-right .book-ride-btn {
     background-color: #38a849;
     color: #fff;
@@ -190,6 +191,7 @@
   nav .nav-middle ul li .dropdown-open {
     display: block;
   }
+ 
   @media only screen and (min-width: 900px) {
     .hide-onDesktop {
       display: none;
